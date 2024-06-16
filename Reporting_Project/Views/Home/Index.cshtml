@@ -1,0 +1,298 @@
+﻿@using Frontend_Project.ViewModel
+@model SessionDetailDTO
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Auditor Dashboard</h4>
+
+    @if (ViewBag.suc != null)
+    {
+        <h4 class="alert alert-success">Insert Purchasing is Done Successfull  </h4>
+    }
+    @if (ViewBag.fail != null)
+    {
+        <h4 class="alert alert-danger">Sorry Insert Purchasing is Fail! </h4>
+    }
+<!-- Basic Layout & Basic with Icons -->
+ <form asp-action="AuditingReport" asp-controller="Home" method="post">
+<div class="row">
+   
+    <!-- Basic with Icons -->
+    <div class="col">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0">Select Round Code</h5> <!--<small class="text-muted float-end">Merged input group</small>-->
+            </div>
+            <div class="card-body">
+              
+
+                    <div class="mb-3">
+                        <!--<label for="exampleFormControlSelect2" class="form-label">Example multiple select</label>-->
+
+                        <select multiple class="form-select" asp-for="RoundCode" aria-label="Multiple select example" onchange="SelectChange()">
+                        <!--onclick="SelectChange()"-->
+                        <option selected>Open this select menu</option>
+                        @foreach (var item in Model.sessions)
+                        {
+                            if(!item.Doneflag)
+                            {
+                                <option style="color: green;" value="@item.RoundCode">@item.RoundCode</option>
+                            }else{
+                                <option style="color: red;" value="@item.RoundCode">@item.RoundCode</option>
+                            }
+                            
+                        }
+                        </select>
+                        <span style="color:red" asp-validation-for="RoundCode"></span>
+                        <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                    </div>
+                  
+
+                    <div class="row justify-content-end">
+                        <div class="col-sm-10">
+                        <button type="button" class="btn btn-primary"  id="btnSend"  onclick="catchSessionID()">Send</button>
+                      
+                        </div>
+                    </div>
+            
+            </div>
+        </div>
+    </div>
+
+
+
+
+  
+</div>
+
+<div class="row" id="formSession" style="display:none">
+
+    <!-- Basic with Icons -->
+    <div class="col">
+        <div class="card mb-4">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="mb-0">Basic with Icons</h5> <small class="text-muted float-end">Merged input group</small>
+            </div>
+            <div class="card-body">
+                    @Html.HiddenFor(x=>x.AuditorId)
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Instructor Name</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"></span>
+                                <input type="text" asp-for="sessionName" class="form-control"  aria-describedby="basic-icon-default-email2" />
+                                <span id="basic-icon-default-email2" class="input-group-text"></span>
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+                  
+
+
+                    <div class="row mb-3" >
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email" >Conducted</label>
+                        <div class="col-sm-10">
+                    <div class="list-group">                      
+                                <label class="list-group-item">
+                                    
+                                    <input class="form-check-input me-1" asp-for="Conducted" type="checkbox" value="true">                                    
+                                </label>
+                    </div>
+
+                            </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Lab</label>
+                        <div class="col-sm-10">
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input class="form-check-input me-1" asp-for="Lab" type="checkbox" value="true">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Test</label>
+                        <div class="col-sm-10">
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input class="form-check-input me-1" asp-for="Test" type="checkbox" value="true">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered</label>
+                        <div class="col-sm-10">
+
+                     <div class="list-group">                      
+                                <label class="list-group-item">
+                                   
+                                    <input class="form-check-input me-1" asp-for="MaterialDelivered" type="checkbox" value="true">                                    
+                                </label>
+                    </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label">Current Chapter</label> <!--for="basic-icon-default-email"-->
+                        <div class="col-sm-10">
+
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input type="text" class="input-group-text col-sm-10" asp-for="Current_Chapter" type="text">
+
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Connection Quality</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"></span>
+                                <input type="number" asp-for="ConnectionQuality" class="form-control" min="1" max="5"/>
+                            @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
+                            </div>
+                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Voice Quality</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"></span>
+                                <input type="number" asp-for="VoiceQuality" class="form-control" min="1" max="5" />
+                                @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
+                            </div>
+                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Video Quality</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"></span>
+                                <input type="number" asp-for="VideoQuality" class="form-control" min="1" max="5" />
+                                @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
+                            </div>
+                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
+                        </div>
+                    </div>
+                    <!-- List group checkbox -->
+
+
+                    <div class="row mb-3" >
+
+                         <label class="col-sm-2 col-form-label" for="basic-icon-default-email" id="lblstudent"></label>
+                        <div class="col-sm-10" id="sessionDiv">
+
+                            </div>
+
+                    </div>
+                    <!--/ List group checkbox -->
+                   
+              
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+    <div class="row justify-content-end">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" id="btn_sub" style="display:none">Send</button>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+@section script{
+    <script>
+
+        $(document).ready(function () {console.log("ready!");
+            var formSessionID = document.getElementById("formSession");
+           
+        });
+        function catchSessionID() {
+
+            var sessionselect = document.getElementById("RoundCode");
+            var formSessionID = document.getElementById("formSession");
+            formSessionID.style.display = "block";
+            var btn_sub = document.getElementById("btn_sub");
+            btn_sub.style.display = "block";
+            console.log("From button=>"+sessionselect.value);
+
+        }
+       
+
+        
+
+    </script>
+   
+}
+
+    @section scriptaja{
+    <script type="text/javascript">
+
+        function SelectChange() {
+            var sessionselect = document.getElementById("RoundCode");
+            
+            var students = document.getElementById("sessionDiv");
+            var lblstudent = document.getElementById("lblstudent");
+            lblstudent.innerText = "Student of session =>" + sessionselect.value;
+            console.log("from selector=>"+sessionselect.value);
+            var formData = new FormData();
+            var seid = sessionselect.value;
+            var uri = "https://localhost:44360/Home/getStudent?roundCode="+seid;
+
+            console.log(formData)
+            console.log(uri)
+            $.ajax({
+                url: uri,
+                method: "get",
+                success: function (result) {
+                    students.innerHTML = result;
+                    console.log(result);
+
+                }
+            });
+        }
+    </script>
+}

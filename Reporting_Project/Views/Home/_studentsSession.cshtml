@@ -1,0 +1,29 @@
+﻿@model Frontend_Project.ViewModel.SessionDetailDTO
+
+
+   
+
+        <div class="list-group">
+            @Html.HiddenFor(x=>x.reportStart)
+            @if(Model.StudentsAttendedList.Count>0)
+            {
+               
+                 for(int i=0 ; i< Model.StudentsAttendedList.Count() ; i++){
+                    <label class="list-group-item">
+                        @Html.HiddenFor(x=>x.StudentsAttendedList[i].Id)
+                        @Html.HiddenFor(x=>x.StudentsAttendedList[i].NameAr)
+                        @Html.HiddenFor(x=>x.StudentsAttendedList[i].NameEN)
+                         <input class="form-check-input me-1" asp-for="StudentsAttendedList[i].attend" type="checkbox" value="true">
+                        @Model.StudentsAttendedList[i].NameAr
+                    </label>
+                }
+
+            }else{
+
+                    <label class="list-group-item">
+                             There is no student in this session
+                    </label>
+            }
+        </div>
+
+
