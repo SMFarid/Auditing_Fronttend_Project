@@ -2,6 +2,10 @@
 {
     public class SessionDetailPostDTO
     {
+        public SessionDetailPostDTO() { 
+            StudentsAttendedList = new List<StudentDTO> ();
+        }
+
         public int AuditorId { get; set; }
         public string RoundCode { get; set; }
         public DateTime ReportStart { get; set; }
