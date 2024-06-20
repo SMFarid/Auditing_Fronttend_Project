@@ -1,6 +1,8 @@
 ﻿
 using System.Collections.Generic;
-namespace Frontend_Project.ViewModel
+using Frontend_Project.ViewModel;
+
+namespace Frontend_Project.Common
 {
     public class CommonResponse<T>
     {

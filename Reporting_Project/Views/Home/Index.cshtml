@@ -4,7 +4,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Auditor Dashboard</h4>
+<h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Horizontal Layouts</h4>
 
     @if (ViewBag.suc != null)
     {
@@ -22,20 +22,20 @@
     <div class="col">
         <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Select Round Code</h5> <!--<small class="text-muted float-end">Merged input group</small>-->
+                <h5 class="mb-0">Basic with Icons</h5> <small class="text-muted float-end">Merged input group</small>
             </div>
             <div class="card-body">
               
 
                     <div class="mb-3">
-                        <!--<label for="exampleFormControlSelect2" class="form-label">Example multiple select</label>-->
+                        <label for="exampleFormControlSelect2" class="form-label">Example multiple select</label>
 
                         <select multiple class="form-select" asp-for="RoundCode" aria-label="Multiple select example" onchange="SelectChange()">
                         <!--onclick="SelectChange()"-->
-                        <option selected>Open this select menu</option>
+                        <option>Open this select menu</option>
                         @foreach (var item in Model.sessions)
                         {
-                            if(!item.Doneflag)
+                            if(item.Doneflag)
                             {
                                 <option style="color: green;" value="@item.RoundCode">@item.RoundCode</option>
                             }else{
@@ -45,7 +45,7 @@
                         }
                         </select>
                         <span style="color:red" asp-validation-for="RoundCode"></span>
-                        <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        <div class="form-text"> You can use letters, numbers & periods </div>
                     </div>
                   
 
@@ -76,15 +76,18 @@
             </div>
             <div class="card-body">
                     @Html.HiddenFor(x=>x.AuditorId)
+                    @Html.HiddenFor(x=>x.reportStart)
+                    @Html.HiddenFor(x=>x.auditing_Session_ID)
+                    @Html.HiddenFor(x=>x.study_Group_ID)
                     <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Instructor Name</label>
+                        <label class="col-sm-2 col-form-label">current Chapter</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"></span>
-                                <input type="text" asp-for="sessionName" class="form-control"  aria-describedby="basic-icon-default-email2" />
-                                <span id="basic-icon-default-email2" class="input-group-text"></span>
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                <input type="text" asp-for="current_Chapter" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" />
+                                <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
                             </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                             <div class="form-text"> You can use letters, numbers & periods </div>
                         </div>
                     </div>
                   
@@ -112,30 +115,28 @@
                             <div class="list-group">
                                 <label class="list-group-item">
 
-                                    <input class="form-check-input me-1" asp-for="Lab" type="checkbox" value="true">
+                                    <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
                                 </label>
                             </div>
 
                         </div>
 
                     </div>
-
-                    <div class="row mb-3">
+                     <div class="row mb-3">
 
                         <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Test</label>
                         <div class="col-sm-10">
                             <div class="list-group">
                                 <label class="list-group-item">
 
-                                    <input class="form-check-input me-1" asp-for="Test" type="checkbox" value="true">
+                                    <input class="form-check-input me-1" asp-for="test_Flag" type="checkbox" value="true">
                                 </label>
                             </div>
 
                         </div>
 
                     </div>
-
-
+                   
                     <div class="row mb-3">
 
                         <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered</label>
@@ -154,27 +155,13 @@
 
                     </div>
 
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label">Current Chapter</label> <!--for="basic-icon-default-email"-->
-                        <div class="col-sm-10">
-
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input type="text" class="input-group-text col-sm-10" asp-for="Current_Chapter" type="text">
-
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
+                    
 
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Connection Quality</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"></span>
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="ConnectionQuality" class="form-control" min="1" max="5"/>
                             @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
                             </div>
@@ -185,7 +172,7 @@
                         <label class="col-sm-2 col-form-label">Voice Quality</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"></span>
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="VoiceQuality" class="form-control" min="1" max="5" />
                                 @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
                             </div>
@@ -196,7 +183,7 @@
                         <label class="col-sm-2 col-form-label">Video Quality</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                                <span class="input-group-text"></span>
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="VideoQuality" class="form-control" min="1" max="5" />
                                 @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
                             </div>

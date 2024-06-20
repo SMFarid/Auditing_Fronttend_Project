@@ -5,6 +5,7 @@ using Frontend_Project.ViewModel;
 using Newtonsoft.Json;
 using AutoMapper;
 using System.Text;
+using Frontend_Project.Common;
 
 namespace Frontend_Project.Controllers
 {
@@ -13,7 +14,7 @@ namespace Frontend_Project.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly HttpClient _client;
         private readonly IMapper mapper;
-        Uri baseAddress = new Uri("https://localhost:7271/api/Auditing/");
+        Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
 
         public HomeController(ILogger<HomeController> logger , IMapper _mapper)
         {
@@ -25,6 +26,10 @@ namespace Frontend_Project.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if(ResultLogin.username == "" || ResultLogin.auditorID ==0)
+            {
+                return RedirectToAction("Login", "Authentication");
+            }
             SessionDetailDTO bigObj = new SessionDetailDTO();
             var auditorSession = new CommonResponse<List<AuditorGroupsDTO>>();
             HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorGroups?auditor_ID=1").Result;
@@ -34,7 +39,10 @@ namespace Frontend_Project.Controllers
                 auditorSession = JsonConvert.DeserializeObject<CommonResponse<List<AuditorGroupsDTO>>>(data);
             }
             bigObj.sessions = auditorSession.Data;
-            bigObj.AuditorId = 2;
+            bigObj.AuditorId = ResultLogin.auditorID;
+            bigObj.reportStart = DateTime.Now;
+            bigObj.auditing_Session_ID = 2;
+            bigObj.study_Group_ID = ResultLogin.auditorID;
             return View(bigObj);
         }
 
@@ -54,7 +62,7 @@ namespace Frontend_Project.Controllers
                 auditorSession = JsonConvert.DeserializeObject<CommonResponse<AuditingSessionCriteraDTO>>(data);
             }
             bigObj.StudentsAttendedList = auditorSession.Data.students;
-            bigObj.reportStart = DateTime.Now;
+           // bigObj.reportStart = DateTime.Now;
            
             return PartialView("_studentsSession", bigObj);
         }
@@ -64,6 +72,7 @@ namespace Frontend_Project.Controllers
         {
             var seesionReportPost = new SessionDetailPostDTO();
             seesionReportPost = mapper.Map<SessionDetailPostDTO>(sessionDetailDTO);
+            seesionReportPost.StudentsAttendedList = sessionDetailDTO.StudentsAttendedList;
             seesionReportPost.ReportEnd = DateTime.Now;
             string seesionReportPostJson = JsonConvert.SerializeObject(seesionReportPost);
 
@@ -82,14 +91,16 @@ namespace Frontend_Project.Controllers
 
 
             var auditorSession = new CommonResponse<List<AuditorGroupsDTO>>();
-            HttpResponseMessage responseGet = _client.GetAsync(baseAddress + "GetAuditorGroups?auditor_ID=2").Result;
+            HttpResponseMessage responseGet = _client.GetAsync(baseAddress + "GetAuditorGroups?auditor_ID=1").Result;
             if (responseGet.IsSuccessStatusCode)
             {
                 string data = responseGet.Content.ReadAsStringAsync().Result;
                 auditorSession = JsonConvert.DeserializeObject<CommonResponse<List<AuditorGroupsDTO>>>(data);
             }
             sessionDetailDTO.sessions = auditorSession.Data;
-            sessionDetailDTO.AuditorId = 2;
+            sessionDetailDTO.AuditorId = ResultLogin.auditorID;
+            sessionDetailDTO.auditing_Session_ID =2;
+            sessionDetailDTO.study_Group_ID = ResultLogin.auditorID;
             return View("Index", sessionDetailDTO/*, new { id = result }*/);
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

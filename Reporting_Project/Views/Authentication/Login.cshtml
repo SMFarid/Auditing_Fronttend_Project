@@ -1,4 +1,5 @@
-﻿
+﻿@using Frontend_Project.ViewModel.Authentication
+@model LoginDto
 @{
     ViewData["Title"] = "Login";
     Layout = "_LoginLayout";
@@ -61,21 +62,24 @@
                     <!-- /Logo -->
                     <h4 class="mb-2">Welcome to Sneat! 👋</h4>
                     <p class="mb-4">Please sign-in to your account and start the adventure</p>
-
-                    <form id="formAuthentication" class="mb-3" action="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/index.html" method="GET">
+                    @if (ViewBag.fail != null)
+                    {
+                        <h3 class="alert alert-danger">Username or password is not Correct , please enter correctly data! </h3>
+                    }
+                    <form id="formAuthentication" class="mb-3" asp-action="Login" asp-controller="Authentication" method="post">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email or Username</label>
-                            <input type="text" class="form-control" id="email" name="email-username" placeholder="Enter your email or username" autofocus>
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" asp-for="username" placeholder="Enter your or username" autofocus>
                         </div>
                         <div class="mb-3 form-password-toggle">
                             <div class="d-flex justify-content-between">
                                 <label class="form-label" for="password">Password</label>
-                                <a href="auth-forgot-password-basic.html">
+                                <a href="#">
                                     <small>Forgot Password?</small>
                                 </a>
                             </div>
                             <div class="input-group input-group-merge">
-                                <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                                <input type="password" class="form-control" asp-for="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
