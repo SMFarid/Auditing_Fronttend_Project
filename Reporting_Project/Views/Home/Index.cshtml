@@ -29,8 +29,9 @@
 
                     <div class="mb-3">
                         <label for="exampleFormControlSelect2" class="form-label">Example multiple select</label>
-
-                        <select multiple class="form-select" asp-for="RoundCode" aria-label="Multiple select example" onchange="SelectChange()">
+                        <input type="text" asp-for="RoundCode" class="form-control" hidden />
+                       <!-- <select multiple class="form-select" asp-for="RoundCode" aria-label="Multiple select example" onchange="SelectChange()">-->
+                        <select multiple class="form-select" id="RoundCodeSelector" aria-label="Multiple select example">
                         <!--onclick="SelectChange()"-->
                         <option>Open this select menu</option>
                         @foreach (var item in Model.sessions)
@@ -76,9 +77,9 @@
             </div>
             <div class="card-body">
                     @Html.HiddenFor(x=>x.AuditorId)
+                     <input type="text" asp-for="AuditorId" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" hidden />
                     @Html.HiddenFor(x=>x.reportStart)
-                    @Html.HiddenFor(x=>x.auditing_Session_ID)
-                    @Html.HiddenFor(x=>x.study_Group_ID)
+                   
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">current Chapter</label>
                         <div class="col-sm-10">
@@ -116,6 +117,20 @@
                                 <label class="list-group-item">
 
                                     <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Depi Logo</label>
+                        <div class="col-sm-10">
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
                                 </label>
                             </div>
 
@@ -238,13 +253,15 @@
            
         });
         function catchSessionID() {
-
-            var sessionselect = document.getElementById("RoundCode");
+             SelectChange();
+            var RoundCodeSelected = document.getElementById("RoundCode");
+            var sessionselect = document.getElementById("RoundCodeSelector");
             var formSessionID = document.getElementById("formSession");
             formSessionID.style.display = "block";
             var btn_sub = document.getElementById("btn_sub");
             btn_sub.style.display = "block";
             console.log("From button=>"+sessionselect.value);
+           
 
         }
        
@@ -259,15 +276,21 @@
     <script type="text/javascript">
 
         function SelectChange() {
-            var sessionselect = document.getElementById("RoundCode");
-            
+            var RoundCodeSelected = document.getElementById("RoundCode");
+            var sessionselect = document.getElementById("RoundCodeSelector");
+            var Auditorselect = document.getElementById("AuditorId");
+            RoundCodeSelected.value = sessionselect.value;
             var students = document.getElementById("sessionDiv");
             var lblstudent = document.getElementById("lblstudent");
             lblstudent.innerText = "Student of session =>" + sessionselect.value;
-            console.log("from selector=>"+sessionselect.value);
+            console.log("from selector=>" + sessionselect.value);
+            console.log(Auditorselect);
+            console.log("RoundCode اللى اختار وداس ارسال بدها   =======> دا اال " + "from fuction SelectChange =>" + RoundCodeSelected.value);
             var formData = new FormData();
             var seid = sessionselect.value;
-            var uri = "https://localhost:44360/Home/getStudent?roundCode="+seid;
+            var Aid = Auditorselect.value;
+
+            var uri = "https://localhost:44360/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
 
             console.log(formData)
             console.log(uri)
