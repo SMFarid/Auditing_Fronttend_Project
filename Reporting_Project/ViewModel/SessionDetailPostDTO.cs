@@ -17,8 +17,8 @@
         
         // public Boolean FilesDelivered { get; set; }
         public List<StudentDTO> StudentsAttendedList { get; set; }
-        public int ConnectionQuality { get; set; }
-        public int VoiceQuality { get; set; }
-        public int VideoQuality { get; set; }
+        public string ConnectionQuality { get; set; }
+        public string VoiceQuality { get; set; }
+        public string VideoQuality { get; set; }
     }
 }

@@ -1,0 +1,205 @@
+﻿@using Frontend_Project.ViewModel.Assignment
+@model RoundCodeAssignmentIndexVM
+@{
+
+}
+
+
+<h4 class="py-3 mb-4">
+    <span class="text-muted fw-light">Tables /</span> Basic Tables
+</h4>
+ @if (ViewBag.suc != null)
+    {
+        <h4 class="alert alert-success">Insert Purchasing is Done Successfull  </h4>
+    }
+    @if (ViewBag.fail != null)
+    {
+        <h4 class="alert alert-danger">Sorry Insert Purchasing is Fail! </h4>
+    }
+<!-- Basic Bootstrap Table -->
+<div class="card">
+    <div class="card-datatable table-responsive">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+            <div class="card-header flex-column flex-md-row">
+
+                <div class="dt-action-buttons text-end pt-3 pt-md-0">
+                    <div class="dt-buttons">
+                        
+                       <!-- <button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" onclick="EditAddFom(0)">
+                            <span><i class="bx bx-plus me-sm-1"></i> 
+                                <span class="d-none d-sm-inline-block">Add New Record</span>
+                            </span>
+                        </button>-->
+                    </div>
+                </div>           
+           
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                        <label>Search:<input type="search" id="roundCodeSearch" class="form-control" onkeyup="FilterRoundCode()" placeholder="" aria-controls="DataTables_Table_0"></label>
+                        
+                        </div>
+                        </div>
+  
+                </div>
+
+        </div>
+    </div>
+    <h5 class="card-header">Table Basic</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table" id="roundCodeTable">
+            <thead>
+                <tr>
+                    <th>Round Code</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" >
+                @if (Model.roundCodeAssignmentsVM.Count > 0)
+                {
+                    foreach(var item in Model.roundCodeAssignmentsVM)
+                    {
+                        <tr>
+                            <!--  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <span class="fw-medium"></span></td>-->
+                            <td>@item.RoundCode</td>
+                            <td>@item.AssignmentDate</td>
+
+                            <!-- <td><span class="badge bg-label-primary me-1">Active</span></td>-->
+                            @if (item.AssignmentID != 0)
+                            {
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onclick="EditAddFom(this.id , 0)" id="@item.AssignmentID" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <a class="dropdown-item" onclick="DeleteItem(@item.AssignmentID)" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            }else{
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" onclick="EditAddFom(0 ,'@item.RoundCode')" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i>Add</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            }
+                            
+                        </tr>
+                    }
+                }else
+                    {
+                       <tr> 
+                           <td colspan="3"> there is no data</td>
+                       </tr> 
+                    }
+               
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end show" id="add-new-record" aria-modal="true" role="dialog">
+    
+</div>
+<!--/ Basic Bootstrap Table -->
+
+  @section scriptassignment{
+<script type="text/javascript">
+
+        function DeleteItem(assignId) {
+            console.log(assignId);
+            if (confirm('Are you sure you want to Delete this item?')) {
+                var uri = "https://localhost:44360/Assignment/delete?AuditingSessionId=" + assignId;
+
+
+                console.log(uri)
+                $.ajax({
+                    url: uri,
+                    method: "post",
+                    success: function (result) {
+                        alert(result);
+
+                    }
+                });
+            } 
+
+               
+            sideFormEdit.classList.add("show");
+            sideFormEdit.setAttribute("aria-modal", "true");
+            sideFormEdit.setAttribute("role", "dialog");
+            backgroundFormEdit.classList.add("show");
+        
+
+
+    }
+    function closeFom() {
+        var sideFormEdit = document.getElementById("add-new-record");
+       // var backgroundFormEdit = document.getElementsByClassName("offcanvas-backdrop");
+       
+        if (sideFormEdit.classList.contains("show")) {
+            sideFormEdit.classList.remove("show");
+            sideFormEdit.removeAttribute("aria-modal", "true");
+            sideFormEdit.removeAttribute("role", "dialog");
+            
+        } else {
+            
+            sideFormEdit.classList.add("show");
+            sideFormEdit.setAttribute("aria-modal", "true");
+            sideFormEdit.setAttribute("role", "dialog");
+            
+        }
+
+
+    }
+</script>
+}
+
+    @section scriptDeleteassignment{
+    <script type="text/javascript">
+
+        function EditAddFom(buttonTypeId, roundcode) {
+            console.log(buttonTypeId);
+            console.log(roundcode);
+            var elementClick = document.getElementById(buttonTypeId);
+            var sideFormEdit = document.getElementById("add-new-record");
+            var backgroundFormEdit = document.getElementsByClassName("offcanvas-backdrop");
+            console.log("elemet clicked edit");
+            console.log(elementClick);
+            console.log("sidebar  edit");
+            console.log(sideFormEdit);
+            if (sideFormEdit.classList.contains("show")) {
+                sideFormEdit.classList.remove("show");
+                backgroundFormEdit.classList.remove("show");
+            } else {
+
+
+                var uri = "https://localhost:44360/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
+
+
+                console.log(uri)
+                $.ajax({
+                    url: uri,
+                    method: "get",
+                    success: function (result) {
+                        sideFormEdit.innerHTML = result;
+                        console.log(result);
+
+                    }
+                });
+                sideFormEdit.classList.add("show");
+                sideFormEdit.setAttribute("aria-modal", "true");
+                sideFormEdit.setAttribute("role", "dialog");
+                backgroundFormEdit.classList.add("show");
+            }
+
+
+        }
+       
+    </script>
+}

@@ -36,10 +36,18 @@
                         <option>Open this select menu</option>
                         @foreach (var item in Model.sessions)
                         {
-                            if(item.Doneflag)
+                            if(item.Doneflag ==0)
                             {
                                 <option style="color: green;" value="@item.RoundCode">@item.RoundCode</option>
-                            }else{
+                                }
+                                else if (item.Doneflag == 1)
+                                {
+                                <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode</option>
+                            } else if (item.Doneflag == 2)
+                                {
+                                <option style="color: black;" value="@item.RoundCode">@item.RoundCode</option>
+                            }else if (item.Doneflag == 9)
+                                {
                                 <option style="color: red;" value="@item.RoundCode">@item.RoundCode</option>
                             }
                             
@@ -79,7 +87,21 @@
                     @Html.HiddenFor(x=>x.AuditorId)
                      <input type="text" asp-for="AuditorId" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" hidden />
                     @Html.HiddenFor(x=>x.reportStart)
-                   
+                    
+
+                    
+                    <!--  <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Provider Chapter</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                <input type="text" asp-for="pro" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" />
+                                <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
+                            </div>
+                             <div class="form-text"> You can use letters, numbers & periods </div>
+                        </div>
+                    </div>
+                    -->
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">current Chapter</label>
                         <div class="col-sm-10">
@@ -170,15 +192,66 @@
 
                     </div>
 
-                    
-
                     <div class="row mb-3">
+                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Connection Quality</label>
+                           <div class="col-sm-10">
+
+                     <div class="list-group"> 
+
+                        <select class="form-select" asp-for="ConnectionQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Mdium">Mdium</option>
+                            <option value="low">low</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="ConnectionQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                        </div>
+                        </div>
+                    </div>
+                  <div class="row mb-3">
+                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Voice Quality</label>
+                           <div class="col-sm-10">
+
+                     <div class="list-group"> 
+
+                        <select class="form-select" asp-for="VoiceQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Mdium">Mdium</option>
+                            <option value="low">low</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="VoiceQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Video Quality</label>
+                           <div class="col-sm-10">
+
+                     <div class="list-group"> 
+
+                        <select class="form-select" asp-for="VideoQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Mdium">Mdium</option>
+                            <option value="low">low</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="VideoQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                        </div>
+                        </div>
+                    </div>
+                   <!-- <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Connection Quality</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="ConnectionQuality" class="form-control" min="1" max="5"/>
-                            @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
                             </div>
                             <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
                         </div>
@@ -189,7 +262,7 @@
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="VoiceQuality" class="form-control" min="1" max="5" />
-                                @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
+                               
                             </div>
                             <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
                         </div>
@@ -200,11 +273,10 @@
                             <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-envelope"></i></span>
                                 <input type="number" asp-for="VideoQuality" class="form-control" min="1" max="5" />
-                                @*    <span id="basic-icon-default-email2" class="input-group-text">example.com</span>*@
                             </div>
                             <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!-- List group checkbox -->
 
 

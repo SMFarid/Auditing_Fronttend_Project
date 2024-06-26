@@ -3,35 +3,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
 ==============================================================
@@ -76,9 +47,23 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="~/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="~/assets/vendor/libs/typeahead-js/typeahead.css" />
+
+    <link rel="stylesheet" href="~/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css">
+    <link rel="stylesheet" href="~/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css">
+    <link rel="stylesheet" href="~/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css">
+    <link rel="stylesheet" href="~/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css">
+
     <link rel="stylesheet" href="~/assets/vendor/libs/apex-charts/apex-charts.css" />
     <link rel="stylesheet" href="~/assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="~/assets/vendor/libs/select2/select2.css" />
+
+
+
+    <!-- Row Group CSS -->
+    <link rel="stylesheet" href="~/assets/vendor/libs/datatables-rowgroup-bs5/rowgroup.bootstrap5.css">
+    <!-- Form Validation -->
+    <link rel="stylesheet" href="~/assets/vendor/libs/form-validation/umd/styles/index.min.css" />
+
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="~/assets/vendor/js/helpers.js"></script>
@@ -171,6 +156,12 @@
                             <div class="text-truncate" data-i18n="Auditor Groups"></div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a class="menu-link" asp-controller="Assignment" asp-action="index">
+                            <i class="menu-icon tf-icons bx bx-calendar"></i>
+                            <div class="text-truncate" data-i18n="Edit Assignment"></div>
+                        </a>
+                    </li>
                     <!-- e-commerce-app menu start -->
 
 
@@ -241,7 +232,6 @@
 
                             <!-- Language -->
                             <!-- /Language -->
-
                             <!-- Quick links  -->
                             <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -611,7 +601,7 @@
                         </ul>
                     </div>
 
-                  
+
                     <!-- Search Small Screens -->
                     <div class="navbar-search-wrapper search-input-wrapper  d-none">
                         <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
@@ -622,20 +612,17 @@
                 </nav>
 
                 <!-- / Navbar -->
-
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
 
                     <!-- Content -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
-                    
-                            @RenderBody()
+
+                        @RenderBody()
 
                     </div>
                     <!-- / Content -->
-                  
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -664,7 +651,7 @@
             </div>
             <!-- / Layout page -->
         </div>
-       
+
 
 
         <!-- Overlay -->
@@ -690,6 +677,8 @@
 
     <!-- endbuild -->
     <!-- Vendors JS -->
+
+    <script src="~/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="~/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="~/assets/vendor/libs/cleavejs/cleave.js"></script>
     <script src="~/assets/vendor/libs/cleavejs/cleave-phone.js"></script>
@@ -697,15 +686,22 @@
     <script src="~/assets/vendor/libs/flatpickr/flatpickr.js"></script>
     <script src="~/assets/vendor/libs/select2/select2.js"></script>
 
+  
+    <!-- Form Validation -->
+    <script src="~/assets/vendor/libs/form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/assets/vendor/libs/form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/assets/vendor/libs/form-validation/umd/plugin-auto-focus/index.min.js"></script>
+
     <!-- Main JS -->
     <script src="~/assets/js/main.js"></script>
-
-
     <!-- Page JS -->
     <script src="~/assets/js/dashboards-analytics.js"></script>
-<script src="~/assets/js/form-layouts.js"></script>
- @RenderSectionAsync("script", required: false)
- @await RenderSectionAsync("scriptaja", required: false)
+    <script src="~/assets/js/tables-datatables-basic.js"></script>
+    <script src="~/assets/js/form-layouts.js"></script>
+    @RenderSectionAsync("script", required: false)
+    @await RenderSectionAsync("scriptaja", required: false)
+    @await RenderSectionAsync("scriptassignment", required: false)
+    @await RenderSectionAsync("scriptDeleteassignment" , required:false)
 </body>
 
 </html>

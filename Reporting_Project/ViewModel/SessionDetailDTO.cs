@@ -10,6 +10,7 @@ namespace Frontend_Project.ViewModel
         // محتاجه اعرف هستقبله من الباك وبعدين ابعته ولا هيتبعت من الفونت عل طول 
         public int auditing_Session_ID { get; set; }
         public int study_Group_ID { get; set; }
+        public string TrainingProvider { get; set; }
         public int AuditorId { get; set; }
         public int Instructor_ID { get; set; }
         public string RoundCode { get; set; }
@@ -22,9 +23,11 @@ namespace Frontend_Project.ViewModel
         public Boolean MaterialDelivered { get; set; }
         public Boolean depi_Logo_Flag { get; set; }
        // public Boolean FilesDelivered { get; set; }
-        public int ConnectionQuality { get; set; }
-        public int VoiceQuality { get; set; }
-        public int VideoQuality { get; set; }
+        public string ConnectionQuality { get; set; }
+        public string VoiceQuality { get; set; }
+        public string VideoQuality { get; set; }
+        public int NumberRegistered { get; set; }
+        public string TrainingCenterName { get; set; }
 
 
     }

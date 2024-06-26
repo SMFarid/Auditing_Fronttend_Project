@@ -60,7 +60,6 @@ namespace Frontend_Project.Controllers
             SessionDetailDTO bigObj = new SessionDetailDTO();
             var auditorSession = new CommonResponse<AuditingSessionCriteraDTO>();
             auditorSession.Data = new AuditingSessionCriteraDTO();
-           // bigObj.StudentsAttendedList = bigObj.StudentsAttendedList.Where(x => x.attend == true).ToList();
             string data = "";
             var authenticationString = $"{ResultLogin.username}:{ResultLogin.password}";
             var base64EncodedAuthenticationString = Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(authenticationString));
@@ -76,6 +75,8 @@ namespace Frontend_Project.Controllers
                 bigObj.StudentsAttendedList = auditorSession.Data.students;
                 bigObj.auditing_Session_ID = auditorSession.Data.Auditing_Session_ID;
                 bigObj.study_Group_ID = auditorSession.Data.Study_Group_ID;
+                bigObj.NumberRegistered = auditorSession.Data.NumberRegistered;
+                bigObj.TrainingProvider = auditorSession.Data.TrainingProvider;
                 bigObj.InstructorList = auditorSession.Data.Instructors;
             }
            
@@ -102,34 +103,43 @@ namespace Frontend_Project.Controllers
 
             HttpResponseMessage response =  _client.PostAsync(baseAddress + "SaveAuditingReport", requestContent).Result;
             var responseSer = new CommonResponse<string>();
-            
+
+
+            SessionDetailDTO bigObj = new SessionDetailDTO();
+            var auditorSession = new CommonResponse<List<AuditorGroupsDTO>>();
             if (response.IsSuccessStatusCode) 
             {
-                ViewBag.suc = "Done"; 
+               
                 string content = "";
                 content = response.Content.ReadAsStringAsync().Result;
                 var resultCone = JsonConvert.DeserializeObject<CommonResponse<string>>(content);
+                if (resultCone.IsSuccess)
+                {
+                    ViewBag.suc = "Done";
+                
+                }
+                else { ViewBag.fail = "fail"; }
+
             }
             else { ViewBag.fail = "fail"; }
-
-
-            var auditorSession = new CommonResponse<List<AuditorGroupsDTO>>();
             HttpResponseMessage responseGet = _client.GetAsync(baseAddress + "GetAuditorGroups?auditor_ID=1").Result;
             if (responseGet.IsSuccessStatusCode)
             {
                 string data = responseGet.Content.ReadAsStringAsync().Result;
                 auditorSession = JsonConvert.DeserializeObject<CommonResponse<List<AuditorGroupsDTO>>>(data);
-            }
-            if (auditorSession.Data != null) 
-            {
-                sessionDetailDTO.sessions = auditorSession.Data;
-                sessionDetailDTO.AuditorId = ResultLogin.auditorID;
-               // sessionDetailDTO.auditing_Session_ID = 2;
-               // sessionDetailDTO.study_Group_ID = ResultLogin.auditorID;
+                if (auditorSession.Data != null)
+                {
+
+                    bigObj.sessions = auditorSession.Data;
+                    bigObj.AuditorId = ResultLogin.auditorID;
+                }
             }
             
-            return View("Index", sessionDetailDTO/*, new { id = result }*/);
+            
+            return RedirectToAction("Index", bigObj/*, new { id = result }*/);
         }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

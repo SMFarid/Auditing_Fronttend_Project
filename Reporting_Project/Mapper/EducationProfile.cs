@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Frontend_Project.ViewModel;
+using Frontend_Project.ViewModel.Assignment;
 
 namespace Frontend_Project.Mapper
 {
@@ -8,7 +9,8 @@ namespace Frontend_Project.Mapper
         public EducationProfile()
         {
 
-            CreateMap<SessionDetailDTO, SessionDetailPostDTO>().ReverseMap();
+            CreateMap<SessionDetailDTO, SessionDetailPostDTO>().ReverseMap(); 
+            CreateMap<AuditorRoundCodeAssignmentVM, EditAuditorRoundCodeAssignmentVM>().ReverseMap(); 
         }
     }
 }
