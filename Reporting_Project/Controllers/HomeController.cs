@@ -25,6 +25,12 @@ namespace Frontend_Project.Controllers
         }
 
         [HttpGet]
+        public IActionResult welcome()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
             if(ResultLogin.username == "" || ResultLogin.auditorID ==0)

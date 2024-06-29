@@ -51,7 +51,7 @@ namespace Frontend_Project.Controllers
                     ResultLogin.nameAr = resultCone.Data.nameAr;
                     ResultLogin.nameEn = resultCone.Data.nameEn;
                     //return RedirectToAction("Index", "Home", new { id = 99 });
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("welcome", "Home");
 
                 }
                 else

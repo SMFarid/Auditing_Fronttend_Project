@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length" id="DataTables_Table_0_length">
-                        <label>Search:<input type="search" id="roundCodeSearch" class="form-control" onkeyup="myFunction()" placeholder="" aria-controls="DataTables_Table_0"></label>
+                        <label>Search:<input type="search" id="roundCodeSearch" class="form-control" onkeyup="FilterRoundCode()" placeholder="" aria-controls="DataTables_Table_0"></label>
                         
                         </div>
                         </div>
@@ -51,9 +51,9 @@
         <table class="table" id="roundCodeTable">
             <thead>
                 <tr>
-                    <th><h3>Round Codes</h3></th>
-                    <th><h3>Date</h3></th>
-                    <th><h3>Actions</h3></th>
+                    <th>Round Code</th>
+                    <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0" >
@@ -140,7 +140,8 @@
     }
     function closeFom() {
         var sideFormEdit = document.getElementById("add-new-record");
-     
+       // var backgroundFormEdit = document.getElementsByClassName("offcanvas-backdrop");
+       
         if (sideFormEdit.classList.contains("show")) {
             sideFormEdit.classList.remove("show");
             sideFormEdit.removeAttribute("aria-modal", "true");
@@ -161,20 +162,20 @@
 
     @section scriptDeleteassignment{
     <script type="text/javascript">
-      
+
         function EditAddFom(buttonTypeId, roundcode) {
             console.log(buttonTypeId);
             console.log(roundcode);
             var elementClick = document.getElementById(buttonTypeId);
             var sideFormEdit = document.getElementById("add-new-record");
-            //var backgroundFormEdit = document.getElementsByClassName("offcanvas-backdrop");
+            var backgroundFormEdit = document.getElementsByClassName("offcanvas-backdrop");
             console.log("elemet clicked edit");
             console.log(elementClick);
             console.log("sidebar  edit");
             console.log(sideFormEdit);
             if (sideFormEdit.classList.contains("show")) {
                 sideFormEdit.classList.remove("show");
-               // backgroundFormEdit.classList.remove("show");
+                backgroundFormEdit.classList.remove("show");
             } else {
 
 
@@ -194,28 +195,11 @@
                 sideFormEdit.classList.add("show");
                 sideFormEdit.setAttribute("aria-modal", "true");
                 sideFormEdit.setAttribute("role", "dialog");
-               // backgroundFormEdit.classList.add("show");
+                backgroundFormEdit.classList.add("show");
             }
 
 
         }
-        function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("roundCodeSearch");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("roundCodeTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
+       
     </script>
 }
