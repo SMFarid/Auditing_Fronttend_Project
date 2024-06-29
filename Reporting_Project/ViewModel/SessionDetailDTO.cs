@@ -6,6 +6,7 @@ namespace Frontend_Project.ViewModel
     {
         public List<StudentDTO> StudentsAttendedList { get; set; } = new List<StudentDTO>(); 
         public List<InstructorDTO> InstructorList { get; set; } = new List<InstructorDTO>(); 
+        public string OtherInstructorName { get; set; }
         public List<AuditorGroupsDTO> sessions { get; set; } = new List<AuditorGroupsDTO>();
         // محتاجه اعرف هستقبله من الباك وبعدين ابعته ولا هيتبعت من الفونت عل طول 
         public int auditing_Session_ID { get; set; }

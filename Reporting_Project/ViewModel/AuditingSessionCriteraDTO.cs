@@ -17,6 +17,7 @@ namespace Frontend_Project.ViewModel
         public List<StudentDTO> students { get; set; }
 
         public List<InstructorDTO> Instructors { get; set; }
+        public string OtherInstructorName { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string instructor { get; set; }

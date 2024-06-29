@@ -28,7 +28,7 @@
     </div>
 </div>
     <div class="mb-3">
-    <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
+        <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
 
         <select class="form-select" asp-for="Instructor_ID">
             <!--onclick="SelectChange()"-->
@@ -39,11 +39,11 @@
             {
                 if (item.Id != 0)
                 {
-                    <option style="color: green;" value="@item.Id">@item.NameAr</option>
+                    <option style="color: green;" value="@item.Id">@item.NameEN</option>
                 }
                 else
                 {
-                    <option style="color: red;" value="@item.Id">@item.NameAr</option>
+                    <option style="color: red;" value="@item.Id">@item.NameEN</option>
                 }
 
             }
@@ -51,6 +51,15 @@
         </select>
         <span style="color:red" asp-validation-for="RoundCode"></span>
         <div class="form-text"> You can use letters, numbers & periods </div>
+    <label class="col-sm-2 col-form-label"> Other Instructor: </label>
+    <div class="col-sm-10">
+        <div class="input-group input-group-merge">
+            <span class="input-group-text"><i class=""></i></span>
+            <input type="text" asp-for="OtherInstructorName" class="form-control" />
+            <!--<span id="basic-icon-default-email2" class="input-group-text">example.com</span>-->
+        </div>
+        <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+    </div>
     </div>
 
 <div class="list-group">

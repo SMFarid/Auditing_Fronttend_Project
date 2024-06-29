@@ -84,6 +84,7 @@ namespace Frontend_Project.Controllers
                 bigObj.NumberRegistered = auditorSession.Data.NumberRegistered;
                 bigObj.TrainingProvider = auditorSession.Data.TrainingProvider;
                 bigObj.InstructorList = auditorSession.Data.Instructors;
+                bigObj.OtherInstructorName = auditorSession.Data.OtherInstructorName;
             }
            
            // bigObj.reportStart = DateTime.Now;
