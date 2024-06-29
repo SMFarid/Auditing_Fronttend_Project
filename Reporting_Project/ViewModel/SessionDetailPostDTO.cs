@@ -5,6 +5,8 @@
         public int auditing_Session_ID { get; set; }
         public int study_Group_ID { get; set; }
         public int AuditorId { get; set; }
+        public int Instructor_ID { get; set; }
+        public string OtherInstructorName { get; set; }
         public string RoundCode { get; set; }
         public DateTime ReportStart { get; set; }
         public DateTime ReportEnd { get; set; }
