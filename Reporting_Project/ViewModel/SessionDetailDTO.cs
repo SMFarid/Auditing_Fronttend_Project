@@ -29,7 +29,7 @@ namespace Frontend_Project.ViewModel
         public string VideoQuality { get; set; }
         public int NumberRegistered { get; set; }
         public string TrainingCenterName { get; set; }
-
+        public string MeetingLink { get; set; }
 
     }
 }
