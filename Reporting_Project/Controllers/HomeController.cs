@@ -58,8 +58,6 @@ namespace Frontend_Project.Controllers
             return View(bigObj);
         }
 
-
-
         [HttpGet]
         public IActionResult getStudent([FromQuery]string roundCode , [FromQuery] string Auditor_ID)
         {

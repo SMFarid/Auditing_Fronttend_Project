@@ -80,6 +80,12 @@ namespace Frontend_Project.Controllers
             }
 
         }
+
+        public IActionResult test()
+        {
+            return View("testV2");
+        }
+
         [HttpGet]
         public IActionResult Registration()
         {

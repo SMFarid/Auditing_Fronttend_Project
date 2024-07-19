@@ -22,7 +22,7 @@
     <div class="col">
         <div class="card mb-4">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <h5 class="mb-0">Basic with Icons</h5> <small class="text-muted float-end">Merged input group</small>
+                @* <h5 class="mb-0">Basic with Icons</h5> <small class="text-muted float-end">Merged input group</small> *@
             </div>
             <div class="card-body">
               
@@ -38,14 +38,14 @@
                         {
                             if(item.Doneflag ==0)
                             {
-                                <option style="color: green;" value="@item.RoundCode">@item.RoundCode</option>
+                                <option style="color: green;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
                                 }
                                 else if (item.Doneflag == 1)
                                 {
-                                <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode</option>
+                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
                             } else if (item.Doneflag == 2)
                                 {
-                                <option style="color: black;" value="@item.RoundCode">@item.RoundCode</option>
+                                    <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
                             }else if (item.Doneflag == 9)
                                 {
                                 <option style="color: red;" value="@item.RoundCode">@item.RoundCode</option>
@@ -76,6 +76,79 @@
 </div>
 
 <div class="row" id="formSession" style="display:none">
+
+     <div class="col">
+        <div class="card mb-4">
+            <div class="card-body">
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Provider</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Job Profile</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Track</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Round Code</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Number of registered</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <input type="text" asp-for="NumberRegistered" class="form-control" disabled />
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label"> Meeting Link</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
+                                <label class="col-sm-2 col-form-label" asp-for="MeetingLink"></label>
+
+                            </div>
+                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Basic with Icons -->
     <div class="col">
@@ -118,7 +191,7 @@
 
                     <div class="row mb-3" >
 
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email" >Conducted</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email" >Active</label>
                         <div class="col-sm-10">
                     <div class="list-group">                      
                                 <label class="list-group-item">
@@ -130,10 +203,9 @@
                             </div>
 
                     </div>
-
                     <div class="row mb-3">
 
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Lab</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Physical Session?</label>
                         <div class="col-sm-10">
                             <div class="list-group">
                                 <label class="list-group-item">
@@ -145,23 +217,25 @@
                         </div>
 
                     </div>
+
                     <div class="row mb-3">
 
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Depi Logo</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Lab?</label>
                         <div class="col-sm-10">
                             <div class="list-group">
                                 <label class="list-group-item">
 
-                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
+                                    <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
                                 </label>
                             </div>
 
                         </div>
 
                     </div>
-                     <div class="row mb-3">
 
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Test</label>
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Test?</label>
                         <div class="col-sm-10">
                             <div class="list-group">
                                 <label class="list-group-item">
@@ -173,10 +247,41 @@
                         </div>
 
                     </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Depi Logo shown?</label>
+                        <div class="col-sm-10">
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Presentation Used?</label>
+                        <div class="col-sm-10">
+                            <div class="list-group">
+                                <label class="list-group-item">
+
+                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                     
                    
                     <div class="row mb-3">
 
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered</label>
+                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered?</label>
                         <div class="col-sm-10">
 
                      <div class="list-group">                      
@@ -293,7 +398,7 @@
               
             </div>
         </div>
-    </div>
+    </div> 
 
 
 
@@ -354,7 +459,7 @@
             RoundCodeSelected.value = sessionselect.value;
             var students = document.getElementById("sessionDiv");
             var lblstudent = document.getElementById("lblstudent");
-            lblstudent.innerText = "Student of session =>" + sessionselect.value;
+            //lblstudent.innerText = "Student of session =>" + sessionselect.value;
             console.log("from selector=>" + sessionselect.value);
             console.log(Auditorselect);
             console.log("RoundCode اللى اختار وداس ارسال بدها   =======> دا اال " + "from fuction SelectChange =>" + RoundCodeSelected.value);
