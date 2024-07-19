@@ -38,7 +38,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.MapControllerRoute(
     name: "default",
     //pattern: "{controller=Home}/{action=Index}/{id?}");
-    // pattern: "{controller=Authentication}/{action=Login}");
-    pattern: "{controller=Assignment}/{action=Index}");
+     pattern: "{controller=Authentication}/{action=Login}");
+   // pattern: "{controller=Assignment}/{action=Index}");
 
 app.Run();
