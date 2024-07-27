@@ -93,5 +93,18 @@ namespace Frontend_Project.Controllers
         {
             return View();
         }
+
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            ResultLogin.username = "";
+            ResultLogin.password = "";
+            ResultLogin.email = "";
+            ResultLogin.auditorID = 0;
+            ResultLogin.nameAr = "";
+            ResultLogin.nameEn = "";
+            return RedirectToAction("login", "Authentication");
+        }
     }
 }
