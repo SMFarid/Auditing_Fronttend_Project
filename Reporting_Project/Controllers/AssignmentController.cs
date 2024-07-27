@@ -15,7 +15,8 @@ namespace Frontend_Project.Controllers
         private readonly ILogger<AssignmentController> _logger;
         private readonly HttpClient _client;
         private readonly IMapper mapper;
-        Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
+        Uri baseAddress = new Uri("http://10.0.27.100:80/AuditingBackend/api/Auditing/");
+        //Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
 
         //Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
         public static List<AuditorRoundCodeAssignmentVM> roundCodeList = new List<AuditorRoundCodeAssignmentVM>();

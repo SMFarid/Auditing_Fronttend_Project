@@ -5,9 +5,8 @@
 @Html.HiddenFor(x=>x.study_Group_ID)
 
 
-<div class="row" id="formSession" style="">
 
-    <div class="col">
+<div class="col">
         <div class="card mb-4">
             <div class="card-body">
                 <div class="row mb-3">
@@ -80,6 +79,9 @@
         </div>
     </div>
 
+
+
+
     <!-- Basic with Icons -->
     <div class="col">
         <div class="card mb-4">
@@ -87,24 +89,10 @@
                 <!--<h5 class="mb-0">Basic with Icons</h5>--> <small class="text-muted float-end">Merged input group</small>
             </div>
             <div class="card-body">
-                @Html.HiddenFor(x => x.AuditorId)
-                <input type="text" asp-for="AuditorId" class="form-control" placeholder="" aria-label="" aria-describedby="" hidden />
-                @Html.HiddenFor(x => x.reportStart)
+           
 
 
 
-                <!--  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Provider Chapter</label>
-                    <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                            <input type="text" asp-for="pro" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" />
-                            <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
-                        </div>
-                         <div class="form-text"> You can use letters, numbers & periods </div>
-                    </div>
-                </div>
-                -->
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">current Chapter</label>
                     <div class="col-sm-10">
@@ -281,44 +269,111 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row mb-3">
-                     <label class="col-sm-2 col-form-label">Connection Quality</label>
-                     <div class="col-sm-10">
-                         <div class="input-group input-group-merge">
-                             <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                             <input type="number" asp-for="ConnectionQuality" class="form-control" min="1" max="5"/>
-                         </div>
-                         <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                     </div>
-                 </div>
-                 <div class="row mb-3">
-                     <label class="col-sm-2 col-form-label">Voice Quality</label>
-                     <div class="col-sm-10">
-                         <div class="input-group input-group-merge">
-                             <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                             <input type="number" asp-for="VoiceQuality" class="form-control" min="1" max="5" />
-
-                         </div>
-                         <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                     </div>
-                 </div>
-                 <div class="row mb-3">
-                     <label class="col-sm-2 col-form-label">Video Quality</label>
-                     <div class="col-sm-10">
-                         <div class="input-group input-group-merge">
-                             <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                             <input type="number" asp-for="VideoQuality" class="form-control" min="1" max="5" />
-                         </div>
-                         <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                     </div>
-                 </div>-->
-                <!-- List group checkbox -->
-
-
+                
                 <div class="row mb-3">
 
                     <label class="col-sm-2 col-form-label" for="basic-icon-default-email" id="lblstudent"></label>
-                    <div class="col-sm-10" id="sessionDiv">
+                    <div class="col-sm-10" >
+
+
+
+
+
+
+
+
+
+
+                        <div class="mb-3">
+                            <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
+
+                            <select class="form-select" asp-for="Instructor_ID">
+                                <!--onclick="SelectChange()"-->
+                                <option>Open this select menu</option>
+                                @if (Model.StudentsAttendedList.Count > 0)
+                                {
+                                    foreach (var item in Model.InstructorList)
+                                    {
+                                        if (item.Id != 0)
+                                        {
+                                            <option style="color: green;" value="@item.Id">@item.NameEN</option>
+                                        }
+                                        else
+                                        {
+                                            <option style="color: red;" value="@item.Id">@item.NameEN</option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+                            <span style="color:red" asp-validation-for="RoundCode"></span>
+
+                            <label class="col-sm-2 col-form-label"> Other Instructor: </label>
+
+                            <div class="mb-3">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class=""></i></span>
+                                    <input type="text" asp-for="OtherInstructorName" class="form-control" />
+                                    <!--<span id="basic-icon-default-email2" class="input-group-text">example.com</span>-->
+                                </div>
+                                <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <label class="col-sm-2 col-form-label"> Students List: </label>
+                            <div class="list-group">
+                                @Html.HiddenFor(x => x.reportStart)
+                                @if (Model.StudentsAttendedList.Count > 0)
+                                {
+
+                                    for (int i = 0; i < Model.StudentsAttendedList.Count(); i++)
+                                    {
+                                        <label class="list-group-item">
+                                            @Html.HiddenFor(x => x.StudentsAttendedList[i].Id)
+                                            @Html.HiddenFor(x => x.StudentsAttendedList[i].NameAr)
+                                            @Html.HiddenFor(x => x.StudentsAttendedList[i].NameEN)
+                                            <input class="form-check-input me-1" asp-for="StudentsAttendedList[i].attend" type="checkbox" checked>
+                                            @Model.StudentsAttendedList[i].NameAr
+                                        </label>
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    <label class="list-group-item">
+                                        There is no student in this session
+                                    </label>
+                                }
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="col-sm-2 col-form-label"> Remarks and Comments: </label>
+                            <div class="mb-3">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class=""></i></span>
+                                    <input type="textbox" asp-for="OtherInstructorName" class="form-control" />
+                                    <!--<span id="basic-icon-default-email2" class="input-group-text">example.com</span>-->
+                                </div>
+                                <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                     </div>
 
                 </div>
@@ -331,9 +386,6 @@
 
 
 
-
-
-</div>
 
 @* <div class="row mb-3">
     <label class="col-sm-2 col-form-label"> Provider</label>
@@ -725,86 +777,5 @@
         </div>
     </div>
 </div> *@
-
-
-
-    <div class="mb-3">
-        <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
-
-        <select class="form-select" asp-for="Instructor_ID">
-            <!--onclick="SelectChange()"-->
-            <option>Open this select menu</option>
-            @if(Model.StudentsAttendedList.Count>0)
-            {
-            foreach (var item in Model.InstructorList)
-            {
-                if (item.Id != 0)
-                {
-                    <option style="color: green;" value="@item.Id">@item.NameEN</option>
-                }
-                else
-                {
-                    <option style="color: red;" value="@item.Id">@item.NameEN</option>
-                }
-
-            }
-            }
-        </select>
-        <span style="color:red" asp-validation-for="RoundCode"></span>
-        
-    <label class="col-sm-2 col-form-label"> Other Instructor: </label>
-    
-    <div class="mb-3">
-        <div class="input-group input-group-merge">
-            <span class="input-group-text"><i class=""></i></span>
-            <input type="text" asp-for="OtherInstructorName" class="form-control" />
-            <!--<span id="basic-icon-default-email2" class="input-group-text">example.com</span>-->
-        </div>
-        <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-    </div>
-
-    </div>
-
-    <div>
-        <label class="col-sm-2 col-form-label"> Students List: </label>
-        <div class="list-group">
-            @Html.HiddenFor(x => x.reportStart)
-            @if (Model.StudentsAttendedList.Count > 0)
-            {
-
-                for (int i = 0; i < Model.StudentsAttendedList.Count(); i++)
-                {
-                    <label class="list-group-item">
-                        @Html.HiddenFor(x => x.StudentsAttendedList[i].Id)
-                        @Html.HiddenFor(x => x.StudentsAttendedList[i].NameAr)
-                        @Html.HiddenFor(x => x.StudentsAttendedList[i].NameEN)
-                        <input class="form-check-input me-1" asp-for="StudentsAttendedList[i].attend" type="checkbox" checked>
-                        @Model.StudentsAttendedList[i].NameAr
-                    </label>
-                }
-
-            }
-            else
-            {
-
-                <label class="list-group-item">
-                    There is no student in this session
-                </label>
-            }
-        </div>
-    </div>
-
-<div>
-    <label class="col-sm-2 col-form-label"> Remarks and Comments: </label>
-    <div class="mb-3">
-        <div class="input-group input-group-merge">
-            <span class="input-group-text"><i class=""></i></span>
-            <input type="textbox" asp-for="OtherInstructorName" class="form-control" />
-            <!--<span id="basic-icon-default-email2" class="input-group-text">example.com</span>-->
-        </div>
-        <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-    </div>
-</div>
-
 
 

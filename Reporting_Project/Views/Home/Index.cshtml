@@ -17,7 +17,11 @@
 <!-- Basic Layout & Basic with Icons -->
  <form asp-action="AuditingReport" asp-controller="Home" method="post">
 <div class="row">
-   
+
+
+        @Html.HiddenFor(x => x.AuditorId)
+        <input type="text" asp-for="AuditorId" class="form-control" placeholder="" aria-label="" aria-describedby="" hidden />
+        @Html.HiddenFor(x => x.reportStart)
     <!-- Basic with Icons -->
     <div class="col">
         <div class="card mb-4">
@@ -77,328 +81,34 @@
 
 <div class="row" id="formSession" style="display:none">
 
-     <div class="col">
-        <div class="card mb-4">
-            <div class="card-body">
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Provider</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
-
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Job Profile</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
-
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Track</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
-
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Round Code</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
-
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Number of registered</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <input type="text" asp-for="NumberRegistered" class="form-control" disabled />
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label"> Meeting Link</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                                <label class="col-sm-2 col-form-label" asp-for="MeetingLink"></label>
-
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Basic with Icons -->
-    <div class="col">
-        <div class="card mb-4">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                    <!--<h5 class="mb-0">Basic with Icons</h5>--> <small class="text-muted float-end">Merged input group</small>
-            </div>
-            <div class="card-body">
-                    @Html.HiddenFor(x=>x.AuditorId)
-                     <input type="text" asp-for="AuditorId" class="form-control" placeholder="" aria-label="" aria-describedby="" hidden />
-                    @Html.HiddenFor(x=>x.reportStart)
-                    
-
-                    
-                    <!--  <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Provider Chapter</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="text" asp-for="pro" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-icon-default-email2" />
-                                <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
-                            </div>
-                             <div class="form-text"> You can use letters, numbers & periods </div>
-                        </div>
-                    </div>
-                    -->
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">current Chapter</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="text" asp-for="current_Chapter" class="form-control" placeholder="" aria-label="" aria-describedby="" />
-                                <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
-                            </div>
-                            <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                        </div>
-                    </div>
-                  
-
-
-                    <div class="row mb-3" >
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email" >Active</label>
-                        <div class="col-sm-10">
-                    <div class="list-group">                      
-                                <label class="list-group-item">
-                                    
-                                    <input class="form-check-input me-1" asp-for="Conducted" type="checkbox" value="true">                                    
-                                </label>
-                    </div>
-
-                            </div>
-
-                    </div>
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Physical Session?</label>
-                        <div class="col-sm-10">
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Lab?</label>
-                        <div class="col-sm-10">
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Test?</label>
-                        <div class="col-sm-10">
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input class="form-check-input me-1" asp-for="test_Flag" type="checkbox" value="true">
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Depi Logo shown?</label>
-                        <div class="col-sm-10">
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Presentation Used?</label>
-                        <div class="col-sm-10">
-                            <div class="list-group">
-                                <label class="list-group-item">
-
-                                    <input class="form-check-input me-1" asp-for="depi_Logo_Flag" type="checkbox" value="true">
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </div>
-                     
-                   
-                    <div class="row mb-3">
-
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered?</label>
-                        <div class="col-sm-10">
-
-                     <div class="list-group">                      
-                                <label class="list-group-item">
-                                   
-                                    <input class="form-check-input me-1" asp-for="MaterialDelivered" type="checkbox" value="true">                                    
-                                </label>
-                    </div>
+    
 
 
 
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-3">
-                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Connection Quality</label>
-                           <div class="col-sm-10">
-
-                     <div class="list-group"> 
-
-                        <select class="form-select" asp-for="ConnectionQuality">
-                            <!--onclick="SelectChange()"-->
-                            <option value="Good">Good</option>
-                            <option value="Average">Average</option>
-                            <option value="Bad">Bad</option>
-
-                        </select>
-                        <span style="color:red" asp-validation-for="ConnectionQuality"></span>
-                        <div class="form-text"> You have to chosse </div>
-                        </div>
-                        </div>
-                    </div>
-                  <div class="row mb-3">
-                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Voice Quality</label>
-                           <div class="col-sm-10">
-
-                     <div class="list-group"> 
-
-                        <select class="form-select" asp-for="VoiceQuality">
-                            <!--onclick="SelectChange()"-->
-                                    <option value="Good">Good</option>
-                                    <option value="Average">Average</option>
-                                    <option value="Bad">Bad</option>
-
-                        </select>
-                        <span style="color:red" asp-validation-for="VoiceQuality"></span>
-                        <div class="form-text"> You have to chosse </div>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Video Quality</label>
-                           <div class="col-sm-10">
-
-                     <div class="list-group"> 
-
-                        <select class="form-select" asp-for="VideoQuality">
-                            <!--onclick="SelectChange()"-->
-                                    <option value="Good">Good</option>
-                                    <option value="Average">Average</option>
-                                    <option value="Bad">Bad</option>
-
-                        </select>
-                        <span style="color:red" asp-validation-for="VideoQuality"></span>
-                        <div class="form-text"> You have to chosse </div>
-                        </div>
-                        </div>
-                    </div>
-                   <!-- <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Connection Quality</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="number" asp-for="ConnectionQuality" class="form-control" min="1" max="5"/>
-                            </div>
-                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Voice Quality</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="number" asp-for="VoiceQuality" class="form-control" min="1" max="5" />
-                               
-                            </div>
-                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Video Quality</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                                <input type="number" asp-for="VideoQuality" class="form-control" min="1" max="5" />
-                            </div>
-                            <div class="form-text"> choose number from 1 => 5. 1 is bad quality , 5 is perfect quality </div>
-                        </div>
-                    </div>-->
-                    <!-- List group checkbox -->
 
 
-                    <div class="row mb-3" >
 
-                         <label class="col-sm-2 col-form-label" for="basic-icon-default-email" id="lblstudent"></label>
-                        <div class="col-sm-10" id="sessionDiv">
 
-                            </div>
 
-                    </div>
-                    <!--/ List group checkbox -->
-                   
-              
-            </div>
-        </div>
-    </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -457,7 +167,7 @@
             var sessionselect = document.getElementById("RoundCodeSelector");
             var Auditorselect = document.getElementById("AuditorId");
             RoundCodeSelected.value = sessionselect.value;
-            var students = document.getElementById("sessionDiv");
+            var students = document.getElementById("formSession");
             var lblstudent = document.getElementById("lblstudent");
             //lblstudent.innerText = "Student of session =>" + sessionselect.value;
             console.log("from selector=>" + sessionselect.value);
@@ -467,7 +177,8 @@
             var seid = sessionselect.value;
             var Aid = Auditorselect.value;
 
-            var uri = "https://localhost:44360/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
+            var uri = "http://10.0.27.100:80/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
+            //var uri = "https://localhost:44360/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
 
             console.log(formData)
             console.log(uri)

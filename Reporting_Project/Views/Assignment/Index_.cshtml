@@ -115,7 +115,8 @@
         function DeleteItem(assignId) {
             console.log(assignId);
             if (confirm('Are you sure you want to Delete this item?')) {
-                var uri = "https://localhost:44360/Assignment/delete?AuditingSessionId=" + assignId;
+                var uri = "http://10.0.27.100:80/Assignment/delete?AuditingSessionId=" + assignId;
+                //var uri = "https://localhost:44360/Assignment/delete?AuditingSessionId=" + assignId;
 
 
                 console.log(uri)
@@ -179,7 +180,8 @@
             } else {
 
 
-                var uri = "https://localhost:44360/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
+                var uri = "http://10.0.27.100:80/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
+                //var uri = "https://localhost:44360/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
 
 
                 console.log(uri)

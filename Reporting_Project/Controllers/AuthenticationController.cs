@@ -14,7 +14,9 @@ namespace Frontend_Project.Controllers
         private readonly HttpClient _client;
         private readonly IMapper mapper;
         private readonly ILogger<AuthenticationController> logger;
-        Uri baseAddress = new Uri("https://localhost:44306/api/Authorize/");
+        Uri baseAddress = new Uri("http://10.0.27.100:80/AuditingBackend/api/Authorize/");
+        //Uri baseAddress = new Uri("https://localhost:80/api/Authorize/");
+        //Uri baseAddress = new Uri("https://localhost:44306/api/Authorize/");
         public AuthenticationController(ILogger<AuthenticationController> _logger, IMapper _mapper)
         {
             logger = _logger;
@@ -32,7 +34,7 @@ namespace Frontend_Project.Controllers
 
             string loginPostJson = JsonConvert.SerializeObject(login);
             var requestContent = new StringContent(loginPostJson, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = _client.PostAsync(baseAddress + "Login", requestContent).Result;
+            HttpResponseMessage response =  _client.PostAsync(baseAddress + "Login", requestContent).Result;
 
             var responseSer = new CommonResponse<LoginResposeDto>();
 
@@ -76,7 +78,7 @@ namespace Frontend_Project.Controllers
                 ResultLogin.auditorID = 0;
                 ResultLogin.nameAr = "";
                 ResultLogin.nameEn = "";
-                return View();
+                return View("Login");
             }
 
         }
