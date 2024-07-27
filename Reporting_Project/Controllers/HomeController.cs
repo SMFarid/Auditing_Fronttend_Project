@@ -84,6 +84,7 @@ namespace Frontend_Project.Controllers
                 bigObj.TrainingProvider = auditorSession.Data.TrainingProvider;
                 bigObj.InstructorList = auditorSession.Data.Instructors;
                 bigObj.OtherInstructorName = auditorSession.Data.OtherInstructorName;
+                bigObj.MeetingLink = auditorSession.Data.MeetingLink;
             }
            
            // bigObj.reportStart = DateTime.Now;

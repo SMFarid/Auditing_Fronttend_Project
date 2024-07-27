@@ -23,5 +23,6 @@ namespace Frontend_Project.ViewModel
         public string instructor { get; set; }
         public string SessionType { get; set; }
         public int NumberRegistered { get; set; }
+        public string? MeetingLink { get; set; }
     }
 }
