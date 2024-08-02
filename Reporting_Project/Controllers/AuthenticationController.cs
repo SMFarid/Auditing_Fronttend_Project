@@ -31,7 +31,10 @@ namespace Frontend_Project.Controllers
         [HttpPost]
         public IActionResult Login(LoginDto login)
         {
+            try
+            {
 
+            
             string loginPostJson = JsonConvert.SerializeObject(login);
             var requestContent = new StringContent(loginPostJson, Encoding.UTF8, "application/json");
             HttpResponseMessage response =  _client.PostAsync(baseAddress + "Login", requestContent).Result;
@@ -84,7 +87,12 @@ namespace Frontend_Project.Controllers
                 ResultLogin.nameEn = "";
                 return View("Login");
             }
-            ViewBag.fail = "fail";
+            }
+            catch(Exception ex)
+            {
+                ViewBag.fail = "fail";
+            }
+          
             return View("Login");
 
         }
