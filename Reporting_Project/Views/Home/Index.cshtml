@@ -43,15 +43,18 @@
                             if(item.Doneflag ==0)
                             {
                                 <option style="color: green;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
-                                }
-                                else if (item.Doneflag == 1)
-                                {
-                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                            }
+                            else if (item.Doneflag == 1)
+                            {
+                                 <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
                             } else if (item.Doneflag == 2)
-                                {
-                                    <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                            {
+                                <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                            } else if (item.Doneflag == 3)
+                            {
+                                <option style="color: purple;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
                             }else if (item.Doneflag == 9)
-                                {
+                            {
                                 <option style="color: red;" value="@item.RoundCode">@item.RoundCode</option>
                             }
                             

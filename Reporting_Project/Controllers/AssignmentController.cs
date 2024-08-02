@@ -109,7 +109,8 @@ namespace Frontend_Project.Controllers
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
 
 
-            HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList").Result;
+            //HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList").Result;
+            HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList?user_id=" + ResultLogin.auditorID).Result;
 
 
             if (response.IsSuccessStatusCode)
