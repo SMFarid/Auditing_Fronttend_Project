@@ -84,6 +84,7 @@ namespace Frontend_Project.Controllers
                 ResultLogin.nameEn = "";
                 return View("Login");
             }
+            return View("Login");
 
         }
 
