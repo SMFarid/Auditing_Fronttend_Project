@@ -31,7 +31,10 @@ namespace Frontend_Project.Controllers
         [HttpPost]
         public IActionResult Login(LoginDto login)
         {
+            try
+            {
 
+            
             string loginPostJson = JsonConvert.SerializeObject(login);
             var requestContent = new StringContent(loginPostJson, Encoding.UTF8, "application/json");
             HttpResponseMessage response =  _client.PostAsync(baseAddress + "Login", requestContent).Result;
@@ -46,14 +49,18 @@ namespace Frontend_Project.Controllers
                 var resultCone = JsonConvert.DeserializeObject<CommonResponse<LoginResposeDto>>(content);
                 if(resultCone.IsSuccess)
                 {
-                    ResultLogin.username = resultCone.Data.username;
-                    ResultLogin.password = resultCone.Data.password;
-                    ResultLogin.email = resultCone.Data.email;
-                    ResultLogin.auditorID = resultCone.Data.auditorID;
-                    ResultLogin.nameAr = resultCone.Data.nameAr;
-                    ResultLogin.nameEn = resultCone.Data.nameEn;
-                    //return RedirectToAction("Index", "Home", new { id = 99 });
-                    return RedirectToAction("welcome", "Home");
+                    if(resultCone.Data != null && resultCone.Data.username != null && resultCone.Data.username != "")
+                    {
+                        ResultLogin.username = resultCone.Data.username;
+                        ResultLogin.password = resultCone.Data.password;
+                        ResultLogin.email = resultCone.Data.email;
+                        ResultLogin.auditorID = resultCone.Data.auditorID;
+                        ResultLogin.nameAr = resultCone.Data.nameAr;
+                        ResultLogin.nameEn = resultCone.Data.nameEn;
+                        //return RedirectToAction("Index", "Home", new { id = 99 });
+                        return RedirectToAction("welcome", "Home");
+                    }
+                    
 
                 }
                 else
@@ -65,7 +72,7 @@ namespace Frontend_Project.Controllers
                     ResultLogin.auditorID = 0;
                     ResultLogin.nameAr = "";
                     ResultLogin.nameEn = "";
-                    return View();
+                    return View("Login");
                 }
                
               
@@ -80,6 +87,13 @@ namespace Frontend_Project.Controllers
                 ResultLogin.nameEn = "";
                 return View("Login");
             }
+            }
+            catch(Exception ex)
+            {
+                ViewBag.fail = "fail";
+            }
+          
+            return View("Login");
 
         }
 
