@@ -13,6 +13,7 @@ namespace Frontend_Project.ViewModel
         public int Study_Group_ID { get; set; }
         public string TrainingCenterName { get; set; }
         public string TrainingProvider { get; set; }
+        public string Track {  get; set; }
         public string CourseName { get; set; }
         public List<StudentDTO> students { get; set; }
 
@@ -23,5 +24,6 @@ namespace Frontend_Project.ViewModel
         public string instructor { get; set; }
         public string SessionType { get; set; }
         public int NumberRegistered { get; set; }
+        public string? MeetingLink { get; set; }
     }
 }

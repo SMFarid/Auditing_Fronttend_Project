@@ -12,6 +12,7 @@
 
     <form class="add-new-record pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework" id="form-add-new-record" asp-action="Add" asp-controller="Assignment" method="post" a novalidate="novalidate">
         @Html.HiddenFor(x=>x.EditRoundCodeAssignmentVM.AssignmentID)
+        @Html.HiddenFor(x=>x.EditRoundCodeAssignmentVM.RoundCode)
 
         <div class="col-sm-12 fv-plugins-icon-container">
             <label class="form-label" for="basicFullname"> Round Code </label>

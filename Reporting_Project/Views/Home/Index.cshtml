@@ -6,11 +6,11 @@
 
 <h4 class="py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Horizontal Layouts</h4>
 
-    @if (ViewBag.suc != null)
+@if (TempData["suc"] != null)
     {
         <h4 class="alert alert-success">Save Successfull  </h4>
     }
-    @if (ViewBag.fail != null)
+@if (TempData["fail"] != null)
     {
         <h4 class="alert alert-danger">Save Failed </h4>
     }
@@ -29,9 +29,19 @@
                 @* <h5 class="mb-0">Basic with Icons</h5> <small class="text-muted float-end">Merged input group</small> *@
             </div>
             <div class="card-body">
-              
 
-                    <div class="mb-3">
+
+                    <div class="row">
+                        @* <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <label>Search:<input type="search" id="roundCodeSearch" class="form-control" onkeyup="myFunction()" placeholder="" aria-controls="DataTables_Table_0"></label>
+
+                            </div>
+                        </div> *@
+
+                    </div>
+
+                    @*<div class="mb-3">
                         <label for="exampleFormControlSelect2" class="form-label">Example multiple select</label>
                         <input type="text" asp-for="RoundCode" class="form-control" hidden />
                        <!-- <select multiple class="form-select" asp-for="RoundCode" aria-label="Multiple select example" onchange="SelectChange()">-->
@@ -43,28 +53,71 @@
                             if(item.Doneflag ==0)
                             {
                                 <option style="color: green;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
-                                }
-                                else if (item.Doneflag == 1)
-                                {
-                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                            }
+                            else if (item.Doneflag == 1)
+                            {
+                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (ReOpened)</option>
                             } else if (item.Doneflag == 2)
-                                {
-                                    <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                            {
+                                    <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Done)</option>
+                            } else if (item.Doneflag == 3)
+                            {
+                                <option style="color: purple;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Pending)</option>
                             }else if (item.Doneflag == 9)
-                                {
-                                <option style="color: red;" value="@item.RoundCode">@item.RoundCode</option>
+                            {
+                                <option style="color: red;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Incomplete)</option>
                             }
                             
                         }
                         </select>
                         <span style="color:red" asp-validation-for="RoundCode"></span>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
-                    </div>
+                    </div>*@
                   
+
+                      <div class="mb-3">
+                        <label class="form-label" for="formValidationSelect2">Country</label>
+                        <input type="text" asp-for="RoundCode" class="form-control" hidden />
+                        <select id="RoundCodeSelector" name="formValidationSelect2" class="form-select select2" data-allow-clear="true">
+                            <option>Open this select menu</option>
+                            @foreach (var item in Model.sessions)
+                            {
+                                if (item.Doneflag == 0)
+                                {
+                                    <option style="color: green;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime</option>
+                                }
+                                else if (item.Doneflag == 1)
+                                {
+                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (ReOpened)</option>
+                                }
+                                else if (item.Doneflag == 2)
+                                {
+                                    <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Done)</option>
+                                }
+                                else if (item.Doneflag == 3)
+                                {
+                                    <option style="color: purple;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Pending)</option>
+                                }
+                                else if (item.Doneflag == 9)
+                                {
+                                    <option style="color: red;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Incomplete)</option>
+                                }
+
+                            }
+                        </select>
+                      </div>
+
+
+
+
+
+
+
+
 
                     <div class="row justify-content-end">
                         <div class="col-sm-10">
-                        <button type="button" class="btn btn-primary"  id="btnSend"  onclick="catchSessionID()">Send</button>
+                        <button type="button" class="btn btn-primary"  id="btnSend"  onclick="catchSessionID()">Start Audit</button>
                       
                         </div>
                     </div>
@@ -81,60 +134,33 @@
 
 <div class="row" id="formSession" style="display:none">
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>
 
-    <div class="row justify-content-end">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary" id="btn_sub" style="display:none">Send</button>
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-primary" id="btn_sub" name="btn" value="btn_publish" style="display:none">Submit Audit</button>
+            <button type="submit" class="btn btn-primary" id="btn_sub2" name="btn" value="btn_Hold" style="display:none">Save State</button>
+            
         </div>
+        @*   <div class="col-sm-3">
+            <button type="button" class="btn btn-primary" id="btn_sub2" onclick="SaveState()" style="display:none">Save Only</button>
+        </div> *@
     </div>
+@*     <div class="row justify-content-end">
+       
+    </div> *@
 
 </form>
 
 
 
-
-
-
-
-
-
 @section script{
     <script>
-
+        
+        document.cookie = "test";
+        // debugger;
         $(document).ready(function () {console.log("ready!");
             var formSessionID = document.getElementById("formSession");
            
@@ -147,22 +173,26 @@
             formSessionID.style.display = "block";
             var btn_sub = document.getElementById("btn_sub");
             btn_sub.style.display = "block";
+            var btn_sub2 = document.getElementById("btn_sub2");
+            btn_sub2.style.display = "block"
             console.log("From button=>"+sessionselect.value);
            
 
         }
-       
-
-        
 
     </script>
+
+
    
 }
+
+
 
     @section scriptaja{
     <script type="text/javascript">
 
         function SelectChange() {
+
             var RoundCodeSelected = document.getElementById("RoundCode");
             var sessionselect = document.getElementById("RoundCodeSelector");
             var Auditorselect = document.getElementById("AuditorId");
@@ -177,6 +207,7 @@
             var seid = sessionselect.value;
             var Aid = Auditorselect.value;
 
+            //var uri = "http://10.0.27.100:80/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
             var uri = "https://localhost:44360/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
 
             console.log(formData)
@@ -190,6 +221,135 @@
 
                 }
             });
+
+            // var RoundCodeSelected = document.getElementById("RoundCode");
+            // var sessionselect = document.getElementById("RoundCodeSelector");
+            // var Auditorselect = document.getElementById("AuditorId");
+            // RoundCodeSelected.value = sessionselect.value;
+            // var students = document.getElementById("formSession");
+            // var lblstudent = document.getElementById("lblstudent");
+            // //lblstudent.innerText = "Student of session =>" + sessionselect.value;
+            // console.log("from selector=>" + sessionselect.value);
+            // console.log(Auditorselect);
+            // console.log("RoundCode اللى اختار وداس ارسال بدها   =======> دا اال " + "from fuction SelectChange =>" + RoundCodeSelected.value);
+            // var formData = new FormData();
+            // var seid = sessionselect.value;
+            // var Aid = Auditorselect.value;
+
+            // //var uri = "http://10.0.27.100:80/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
+            // var uri = "https://localhost:44360/Home/getStudent?roundCode=" + seid + "&Auditor_ID=" + Aid;
+
+            // console.log(formData)
+            // console.log(uri)
+            // $.ajax({
+            //     url: uri,
+            //     method: "get",
+            //     success: function (result) {
+            //         students.innerHTML = result;
+            //         console.log(result);
+
+            //     }
+            // });
+
+
         }
+
+        function SaveState() {
+
+            // var RoundCodeSelected = document.getElementById("RoundCode");
+            // console.log("1");
+
+            // var sessionselect = document.getElementById("RoundCodeSelector");
+            // var Auditorselect = document.getElementById("AuditorId");
+            // console.log("2");
+
+            // RoundCodeSelected.value = sessionselect.value;
+            // var students = document.getElementById("formSession");
+            // var lblstudent = document.getElementById("lblstudent");
+            // console.log("3");
+
+            // //lblstudent.innerText = "Student of session =>" + sessionselect.value;
+            // console.log("from selector=>" + sessionselect.value);
+            // console.log(Auditorselect);
+            // console.log("RoundCode اللى اختار وداس ارسال بدها   =======> دا اال " + "from fuction SelectChange =>" + RoundCodeSelected.value);
+            var formData = new FormData();
+            // var seid = sessionselect.value;
+            // var Aid = Auditorselect.value;
+            console.log("1");
+            var uri = "http://10.0.27.100:80/Home/HoldAuditingReport";
+            //var uri = "https://localhost:44360/Home/HoldAuditingReport";
+
+            console.log(formData)
+            console.log(uri)
+            $.ajax({
+                url: uri,
+                method: "post",
+                success: function (result) {
+                    students.innerHTML = result;
+                    console.log(result);
+
+                }
+            });
+        }
+
+        // function myFunction() {
+        //     var input, filter, table, tr, td, i, txtValue;
+        //     input = document.getElementById("roundCodeSearch");
+        //     filter = input.value.toUpperCase();
+        //     //table = document.getElementById("RoundCodeSelector");
+        //     var codesList = @Model.sessions;
+        //     ////table.value.
+        //     //tr = table.getElementsByTagName("option");
+        //     debugger;
+        //     for (int i = 0; i < codesList.Count ; i++) {
+
+        //         if (codesList[i].RoundCode) {
+        //             txtValue = codesList[i].RoundCode;
+        //             if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        //                 codesList[i].RoundCode[i].style.display = "";
+        //             } else {
+        //                 codesList[i].RoundCode[i].style.display = "none";
+        //             }
+        //         }
+        //     }
+        // }
+
+
+        function displayAddtionalQustion() {
+            //debugger
+            //$("input[type=checkbox]").change(function () {
+            //    debugger
+            //    if ($(this).prop("checked")) {
+            //        $(this).val(true);
+            //        console.log("true")
+            //    } else {
+            //        $(this).val(false);
+            //        console.log("false")
+            //    }
+            //});
+
+
+            // //debugger
+             console.log("strat func");
+             var pysicalSession = document.getElementById('lab_Flag');
+             var PhysicalQuestion = document.getElementById('PhysicalQuestion');
+             var isCheck =  document.getElementById('lab_Flag').checked;
+             console.log(" pysicalSession Element");
+            console.log(" isCheck  properity => " + isCheck);
+             console.log(pysicalSession);
+            if (isCheck) {
+                 console.log("true")
+
+                PhysicalQuestion.style.display = 'block';
+                console.log("PhysicalQuestion.style.display = => " + PhysicalQuestion.style.display );
+             } else {
+                 console.log("false")
+
+                PhysicalQuestion.style.display = 'none';
+                console.log("PhysicalQuestion.style.display = => " + PhysicalQuestion.style.display);
+             }
+             console.log(" End");
+        }
+
     </script>
 }

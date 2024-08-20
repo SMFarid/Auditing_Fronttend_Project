@@ -1,5 +1,7 @@
 ﻿@model Frontend_Project.ViewModel.SessionDetailDTO
-
+@{
+   int? x =  Model.auditing_Session_ID;
+}
 
 @Html.HiddenFor(x=>x.auditing_Session_ID)
 @Html.HiddenFor(x=>x.study_Group_ID)
@@ -14,13 +16,13 @@
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                             <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                            <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+                            <input type="text" asp-for="TrainingProvider" class="form-control" disabled />
 
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
                     </div>
                 </div>
-                <div class="row mb-3">
+                @* <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"> Job Profile</label>
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
@@ -30,13 +32,13 @@
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
                     </div>
-                </div>
+                </div> *@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label"> Track</label>
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                             <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                            <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+                            <input type="text" asp-for="Track" class="form-control" disabled />
 
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
@@ -47,7 +49,7 @@
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                             <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                            <input type="text" asp-for="TrainingCenterName" class="form-control" disabled />
+                            <input type="text" asp-for="RoundCode" class="form-control" disabled />
 
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
@@ -69,7 +71,8 @@
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                             <!--<span class="input-group-text"><i class="bx bx-envelope"></i></span>-->
-                            <label class="col-sm-2 col-form-label" asp-for="MeetingLink"></label>
+                        <!--<label class="col-sm-2 col-form-label" asp-for="MeetingLink"></label>-->
+                        <input type="text" asp-for="MeetingLink" class="form-control" readonly />
 
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
@@ -94,12 +97,12 @@
 
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">current Chapter</label>
+                    <label class="col-sm-2 col-form-label">Current Chapter *</label>
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-envelope"></i></span>
-                            <input type="text" asp-for="current_Chapter" class="form-control" placeholder="" aria-label="" aria-describedby="" />
-                            <span id="basic-icon-default-email2" class="input-group-text">example.com</span>
+                            <span class="input-group-text"><i class=""></i></span>
+                            <input type="text" asp-for="current_Chapter" class="form-control" placeholder="" aria-label="" aria-describedby="" required />
+                            @* <span id="basic-icon-default-email2" class="input-group-text">example.com</span> *@
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
                     </div>
@@ -123,12 +126,12 @@
                 </div>
                 <div class="row mb-3">
 
-                    <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Physical Session?</label>
+                    <label class="col-sm-2 col-form-label"  for="basic-icon-default-email">Physical Session?</label>
                     <div class="col-sm-10">
                         <div class="list-group">
                             <label class="list-group-item">
 
-                                <input class="form-check-input me-1" asp-for="lab_Flag" type="checkbox" value="true">
+                            <input class="form-check-input me-1" asp-for="lab_Flag" id="lab_Flag" type="checkbox" onchange="displayAddtionalQustion()">
                             </label>
                         </div>
 
@@ -198,91 +201,213 @@
 
 
                 <div class="row mb-3">
-
                     <label class="col-sm-2 col-form-label" for="basic-icon-default-email"> Material Delivered?</label>
                     <div class="col-sm-10">
-
                         <div class="list-group">
                             <label class="list-group-item">
 
                                 <input class="form-check-input me-1" asp-for="MaterialDelivered" type="checkbox" value="true">
                             </label>
                         </div>
-
-
-
-                    </div>
-
-                </div>
-
-                <div class="row mb-3">
-                    <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Connection Quality</label>
-                    <div class="col-sm-10">
-
-                        <div class="list-group">
-
-                            <select class="form-select" asp-for="ConnectionQuality">
-                                <!--onclick="SelectChange()"-->
-                                <option value="Good">Good</option>
-                                <option value="Average">Average</option>
-                                <option value="Bad">Bad</option>
-
-                            </select>
-                            <span style="color:red" asp-validation-for="ConnectionQuality"></span>
-                            <div class="form-text"> You have to chosse </div>
-                        </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Voice Quality</label>
-                    <div class="col-sm-10">
 
-                        <div class="list-group">
+            <div id="PhysicalQuestion" style="display:none">
 
-                            <select class="form-select" asp-for="VoiceQuality">
-                                <!--onclick="SelectChange()"-->
-                                <option value="Good">Good</option>
-                                <option value="Average">Average</option>
-                                <option value="Bad">Bad</option>
+            <div class="row mb-3">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Hardware and devices quality</label>
+                <div class="col-sm-10">
 
-                            </select>
-                            <span style="color:red" asp-validation-for="VoiceQuality"></span>
-                            <div class="form-text"> You have to chosse </div>
-                        </div>
+                    <div class="list-group">
+
+                        <select class="form-select" asp-for="HardwareProficiency">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Bad">Bad</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="HardwareProficiency"></span>
+                        <div class="form-text"> You have to chosse </div>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Video Quality</label>
-                    <div class="col-sm-10">
+            </div>
 
-                        <div class="list-group">
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Provided examples were clear?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
 
-                            <select class="form-select" asp-for="VideoQuality">
-                                <!--onclick="SelectChange()"-->
-                                <option value="Good">Good</option>
-                                <option value="Average">Average</option>
-                                <option value="Bad">Bad</option>
-
-                            </select>
-                            <span style="color:red" asp-validation-for="VideoQuality"></span>
-                            <div class="form-text"> You have to chosse </div>
-                        </div>
+                            <input class="form-check-input me-1" asp-for="UnderstoodExamples" type="checkbox" value="true">
+                        </label>
                     </div>
                 </div>
+            </div>
+
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Provided explaination was clear?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="UnderstoonExplaination" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Was there enough time for questions?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="TimeForQuestions" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Did instructor encourage class interactions?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="InstructorEncouragement" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Provided material is clear?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="MaterialIsClear" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Air conditioner quality</label>
+                <div class="col-sm-10">
+
+                    <div class="list-group">
+
+                        <select class="form-select" asp-for="ACCondition">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Bad">Bad</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="ACCondition"></span>
+                        <div class="form-text"> You have to chosse </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Center environment is good?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="CenterEnvironment" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Initiative rules explained?</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="InitiativeClear" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-icon-default-email">Previous session link delivered</label>
+                <div class="col-sm-10">
+                    <div class="list-group">
+                        <label class="list-group-item">
+
+                            <input class="form-check-input me-1" asp-for="PrevLinks" type="checkbox" value="true">
+                        </label>
+                    </div>
+                </div>
+            </div> 
+
+            </div>
+
+            <div class="row mb-3">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Connection Quality</label>
+                <div class="col-sm-10">
+
+                    <div class="list-group">
+
+                        <select class="form-select" asp-for="ConnectionQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="Bad">Bad</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="ConnectionQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Voice Quality</label>
+                <div class="col-sm-10">
+
+                    <div class="list-group">
+
+                        <select class="form-select" asp-for="VoiceQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="Bad">Bad</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="VoiceQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Video Quality</label>
+                <div class="col-sm-10">
+
+                    <div class="list-group">
+
+                        <select class="form-select" asp-for="VideoQuality">
+                            <!--onclick="SelectChange()"-->
+                            <option value="Good">Good</option>
+                            <option value="Average">Average</option>
+                            <option value="Bad">Bad</option>
+
+                        </select>
+                        <span style="color:red" asp-validation-for="VideoQuality"></span>
+                        <div class="form-text"> You have to chosse </div>
+                    </div>
+                </div>
+            </div>
                 
                 <div class="row mb-3">
 
                     <label class="col-sm-2 col-form-label" for="basic-icon-default-email" id="lblstudent"></label>
                     <div class="col-sm-10" >
-
-
-
-
-
-
-
-
-
 
                         <div class="mb-3">
                             <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
@@ -452,7 +577,7 @@
         </div>
         
     </div>
-</div> *@
+</div>
 
 
 
@@ -779,3 +904,25 @@
 </div> *@
 
 
+
+@section scriptSessionStudent{
+    <script type="text/javascript">
+
+
+        function displayAddtionalQustion() {
+            console.log("strat func");
+            var pysicalSession = document.getElementById('lab_Flag');
+            console.log(" pysicalSession Element");
+            console.log(pysicalSession);
+            var PhysicalQuestion = document.getElementById('PhysicalQuestion');
+            console.log(" PhysicalQuestion Element");
+            console.log(PhysicalQuestion);
+            if (pysicalSession.Checked) {
+                PhysicalQuestion.style.display = block;
+            } else {
+                PhysicalQuestion.style.display = none;
+            }
+            console.log("checked of pysicalSession.Checked" + pysicalSession.Checked);
+        }
+    </script>
+}

@@ -15,9 +15,12 @@ namespace Frontend_Project.Controllers
         private readonly ILogger<AssignmentController> _logger;
         private readonly HttpClient _client;
         private readonly IMapper mapper;
+        //Uri baseAddress = new Uri("http://10.0.27.100:80/AuditingBackend/api/Auditing/");
         Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
 
         //Uri baseAddress = new Uri("https://localhost:44306/api/Auditing/");
+        private readonly IHttpContextAccessor _contextAccessor;
+
         public static List<AuditorRoundCodeAssignmentVM> roundCodeList = new List<AuditorRoundCodeAssignmentVM>();
          //{
          //       new AuditorRoundCodeAssignmentVM() { AuditingSessionId = 2, StudyGroupRoundCode = "CAI1_ISS7_G1e" , AuditorId = 1 , Conducted = true , Date = DateTime.Parse("2024-06-13")},
@@ -35,18 +38,20 @@ namespace Frontend_Project.Controllers
         //    new AuditorListVM{AuditorID = 8,NameEn="Mohamed Badawy Shenawy Badawy"     , NameAr="محمد بدوي شناوي بدوي" },
         //    new AuditorListVM{AuditorID = 9,NameEn="Mohamed Turkey Mahmoud Abdelmwgoud", NameAr="محمد تركي محمود عبدالموجود" }
         //};
-    public AssignmentController(ILogger<AssignmentController> logger, IMapper _mapper)
+    public AssignmentController(ILogger<AssignmentController> logger, IMapper _mapper, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _client = new HttpClient();
             mapper = _mapper;
+            this._contextAccessor = httpContextAccessor;
         }
         [HttpGet]
         public IActionResult Index()
         {
 
 
-            if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
+            // if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
+            if (_contextAccessor.HttpContext.Request.Cookies["username"] == null)
             {
                 return RedirectToAction("Login", "Authentication");
             }
@@ -76,29 +81,22 @@ namespace Frontend_Project.Controllers
             return View(roundCodeIndex);
 
 
-
-
-
-
-
-
-
-
-
-
             //roundCodeIndex.roundCodeAssignmentsVM = roundCodeList;
             //return View(roundCodeIndex);
         }
+
+
         [HttpGet]
         public IActionResult Add([FromQuery]  int AuditingSessionId , [FromQuery] string roundCode)
         {
             RoundCodeAssignmentIndexVM roundCodeAssignmentIndex = new RoundCodeAssignmentIndexVM();
 
 
-            if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
+           // if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
+                if (_contextAccessor.HttpContext.Request.Cookies["username"] == null)
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
 
 
             var AuditorsList = new CommonResponse<List<AuditorListVM>>();
@@ -108,7 +106,8 @@ namespace Frontend_Project.Controllers
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
 
 
-            HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList").Result;
+            //HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList").Result;
+            HttpResponseMessage response = _client.GetAsync(baseAddress + "GetAuditorsList?user_id=" + ResultLogin.auditorID).Result;
 
 
             if (response.IsSuccessStatusCode)
@@ -120,17 +119,6 @@ namespace Frontend_Project.Controllers
                     roundCodeAssignmentIndex.EditRoundCodeAssignmentVM.auditors = AuditorsList.Data;
                 }
             }
-
-
-
-
-
-
-
-
-
-
-
 
             if (AuditingSessionId == 0)
             {
@@ -146,7 +134,8 @@ namespace Frontend_Project.Controllers
                 roundCodeAssignmentIndex.EditRoundCodeAssignmentVM.Conducted = x.Conducted;
                 roundCodeAssignmentIndex.EditRoundCodeAssignmentVM.AssignmentDate = x.AssignmentDate;
                 roundCodeAssignmentIndex.EditRoundCodeAssignmentVM.RoundCode = x.RoundCode;
-                };
+                roundCodeAssignmentIndex.EditRoundCodeAssignmentVM.StatusName = x.StatusName;
+            };
                 return PartialView("_FormEditAssignment", roundCodeAssignmentIndex);
             }
             
@@ -159,10 +148,11 @@ namespace Frontend_Project.Controllers
 
 
 
-            if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
+            //if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
+                if (_contextAccessor.HttpContext.Request.Cookies["username"] == null)
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
 
             RoundCodeAssignmentIndexVM roundCodeIndex = new RoundCodeAssignmentIndexVM();
             var RoundCodeAssignment = new CommonResponse<List<AuditorRoundCodeAssignmentVM>>();
@@ -191,14 +181,14 @@ namespace Frontend_Project.Controllers
                 var resultCone = JsonConvert.DeserializeObject<CommonResponse<string>>(content);
                 if (resultCone.IsSuccess)
                 {
-                    ViewBag.suc = "Done";
+                    TempData["suc"] = "Done";
                 }
                 else
                 {
-                    ViewBag.fail = "fail";
+                    TempData["fail"]  = "fail";
                 }
             }
-            else { ViewBag.fail = "fail"; }
+            else { TempData["fail"]  = "fail"; }
 
 
 
@@ -212,10 +202,11 @@ namespace Frontend_Project.Controllers
         [HttpPost]
         public IActionResult Edit(RoundCodeAssignmentIndexVM add)
         {
-            if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
+           // if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
+                if (_contextAccessor.HttpContext.Request.Cookies["username"] == null)
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
 
             RoundCodeAssignmentIndexVM roundCodeIndex = new RoundCodeAssignmentIndexVM();
             var RoundCodeAssignment = new CommonResponse<List<AuditorRoundCodeAssignmentVM>>();
@@ -261,6 +252,7 @@ namespace Frontend_Project.Controllers
         [HttpPost]
         public string delete([FromQuery] int AuditingSessionId)
         {
+
           
             var item = roundCodeList.FirstOrDefault(x => x.AssignmentID == AuditingSessionId);
             if(item == null)

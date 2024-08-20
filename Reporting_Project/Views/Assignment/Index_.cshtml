@@ -10,11 +10,11 @@
 </h4>
  @if (ViewBag.suc != null)
     {
-        <h4 class="alert alert-success">Insert Purchasing is Done Successfull  </h4>
+        <h4 class="alert alert-success">Success!</h4>
     }
     @if (ViewBag.fail != null)
     {
-        <h4 class="alert alert-danger">Sorry Insert Purchasing is Fail! </h4>
+        <h4 class="alert alert-danger">Sorry, action failed!</h4>
     }
 <!-- Basic Bootstrap Table -->
 <div class="card">
@@ -52,6 +52,7 @@
             <thead>
                 <tr>
                     <th>Round Code</th>
+                    <th>Status</th>
                     <th>Date</th>
                     <th>Actions</th>
                 </tr>
@@ -64,6 +65,7 @@
                         <tr>
                             <!--  <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <span class="fw-medium"></span></td>-->
                             <td>@item.RoundCode</td>
+                            <td>@item.StatusName</td>
                             <td>@item.AssignmentDate</td>
 
                             <!-- <td><span class="badge bg-label-primary me-1">Active</span></td>-->
@@ -115,6 +117,7 @@
         function DeleteItem(assignId) {
             console.log(assignId);
             if (confirm('Are you sure you want to Delete this item?')) {
+                //var uri = "http://10.0.27.100:80/Assignment/delete?AuditingSessionId=" + assignId;
                 var uri = "https://localhost:44360/Assignment/delete?AuditingSessionId=" + assignId;
 
 
@@ -179,6 +182,7 @@
             } else {
 
 
+                //var uri = "http://10.0.27.100:80/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
                 var uri = "https://localhost:44360/Assignment/Add?AuditingSessionId=" + buttonTypeId + "&roundCode=" + roundcode;
 
 
@@ -200,6 +204,10 @@
 
 
         }
-       
+
+
+
+
+
     </script>
 }

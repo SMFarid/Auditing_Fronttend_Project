@@ -2387,6 +2387,9 @@ textarea.form-control-lg {
   padding-right: 0.75rem;
   background-image: none;
 }
+
+
+
 .form-select:disabled {
   background-color: #e9ecef;
 }
