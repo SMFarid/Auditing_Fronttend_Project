@@ -8,6 +8,7 @@
         public static string nameEn = "";
         public static string nameAr = "";
         public static int auditorID = 0;
+        public static int role = 0;
         
     }
 }

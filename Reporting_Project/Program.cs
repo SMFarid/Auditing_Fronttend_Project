@@ -17,7 +17,8 @@ builder.Services.AddCors(options =>
                                 .AllowAnyHeader();
                       });
 });
-var app = builder.Build();
+builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor > ()
+; var app = builder.Build();
 
 //// Configure the HTTP request pipeline.
 //if (!app.Environment.IsDevelopment())
@@ -53,7 +54,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.MapControllerRoute(
     name: "default",
     //pattern: "{controller=Home}/{action=Index}/{id?}");
-    // pattern: "{controller=Authentication}/{action=Login}");
-    pattern: "{controller=Assignment}/{action=Index}");
+     pattern: "{controller=Authentication}/{action=Login}");
+    //pattern: "{controller=Assignment}/{action=Index}");
 
 app.Run();

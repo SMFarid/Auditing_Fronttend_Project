@@ -14,5 +14,6 @@ namespace Frontend_Project.ViewModel.Assignment
         public DateTime? AssignmentDate { get; set; }
         public int? Conducted { get; set; }
         public List<AuditorListVM> auditors { get; set; }
+        public string? StatusName { get; set; }
     }
 }

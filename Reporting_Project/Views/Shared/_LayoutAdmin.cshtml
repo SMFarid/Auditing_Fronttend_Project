@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    string isAdmin = HttpContextAccessor.HttpContext.Request.Cookies["role"];
+   
+}
+
+<!DOCTYPE html>
 
 
 
@@ -106,7 +113,7 @@
             <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
                 <div class="app-brand demo ">
-                    <a href="#" class="app-brand-link" id="iconImg" style="display:block" >
+                    <a asp-action="welcome" asp-controller="Home" class="app-brand-link" id="iconImg" style="display:block">
                         <img src="~/assets/img/logo.png" class="app-brand-text demo menu-text fw-bold ms-2" width="200">
                     </a>
 
@@ -133,12 +140,15 @@
                             <div class="text-truncate" data-i18n="Auditor Groups"></div>
                         </a>
                     </li>
-                    <li class="menu-item">
-                        <a class="menu-link" asp-controller="Assignment" asp-action="index">
-                            <i class="menu-icon tf-icons bx bx-calendar"></i>
-                            <div class="text-truncate" data-i18n="Edit Assignment"></div>
-                        </a>
-                    </li>
+                    @if(isAdmin =="1")
+                    {
+                        <li class="menu-item">
+                            <a class="menu-link" asp-controller="Assignment" asp-action="index">
+                                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                                <div class="text-truncate" data-i18n="Edit Assignment"></div>
+                            </a>
+                        </li>
+                    }
                     <!-- e-commerce-app menu start -->
 
 
@@ -165,16 +175,6 @@
 
                 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
 
-
-
-
-
-
-
-
-
-
-
                     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
                         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
                             <i class="bx bx-menu bx-sm"></i>
@@ -188,14 +188,14 @@
 
 
                         <!-- Search -->
-                        <div class="navbar-nav align-items-center">
+                       @*  <div class="navbar-nav align-items-center">
                             <div class="nav-item navbar-search-wrapper mb-0">
                                 <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
                                     <i class="bx bx-search bx-sm"></i>
                                     <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
                                 </a>
                             </div>
-                        </div>
+                        </div> *@
                         <!-- /Search -->
 
 
@@ -210,15 +210,15 @@
                             <!-- Language -->
                             <!-- /Language -->
                             <!-- Quick links  -->
-                            <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
+                            @* <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                     <i class='bx bx-grid-alt bx-sm'></i>
                                 </a>
                                
-                            </li>
+                            </li> *@
                             <!-- Quick links -->
                             <!-- Style Switcher -->
-                            <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                            @* <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <i class='bx bx-sm'></i>
                                 </a>
@@ -239,15 +239,15 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> *@
                             <!-- / Style Switcher-->
                             <!-- Notification -->
-                            <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+                            @* <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                                     <i class="bx bx-bell bx-sm"></i>
                                     <span class="badge bg-danger rounded-pill badge-notifications">5</span>
                                 </a>
-                            </li>
+                            </li> *@
                             <!--/ Notification -->
                             <!-- User -->
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -257,7 +257,7 @@
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
+                                    @* <li>
                                         <a class="dropdown-item" href="pages-account-settings-account.html">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
@@ -271,7 +271,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> *@
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
@@ -390,7 +390,8 @@
     @RenderSectionAsync("script", required: false)
     @await RenderSectionAsync("scriptaja", required: false)
     @await RenderSectionAsync("scriptassignment", required: false)
-    @await RenderSectionAsync("scriptDeleteassignment" , required:false)
+    @await RenderSectionAsync("scriptDeleteassignment", required: false)
+    @await RenderSectionAsync("scriptSessionStudent", required: false)
 </body>
 
 </html>

@@ -4,8 +4,11 @@ using Frontend_Project.ViewModel;
 using Frontend_Project.ViewModel.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Text;
+using System.Web;
 
 namespace Frontend_Project.Controllers
 {
@@ -14,14 +17,16 @@ namespace Frontend_Project.Controllers
         private readonly HttpClient _client;
         private readonly IMapper mapper;
         private readonly ILogger<AuthenticationController> logger;
-        Uri baseAddress = new Uri("http://10.0.27.100:80/AuditingBackend/api/Authorize/");
+        private readonly IHttpContextAccessor _httpContextAccessor ;
+        //Uri baseAddress = new Uri("http://10.0.27.100:80/AuditingBackend/api/Authorize/");
         //Uri baseAddress = new Uri("https://localhost:80/api/Authorize/");
-        //Uri baseAddress = new Uri("https://localhost:44306/api/Authorize/");
-        public AuthenticationController(ILogger<AuthenticationController> _logger, IMapper _mapper)
+        Uri baseAddress = new Uri("https://localhost:44306/api/Authorize/");
+        public AuthenticationController(ILogger<AuthenticationController> _logger, IMapper _mapper, IHttpContextAccessor httpContextAccessor)
         {
             logger = _logger;
             _client = new HttpClient();
             mapper = _mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet] 
         public IActionResult Login()
@@ -43,6 +48,7 @@ namespace Frontend_Project.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                    HttpContext.Response.Cookies.Append("User", "test");
                 ViewBag.suc = "Done";
                 string content = "";
                 content = response.Content.ReadAsStringAsync().Result;
@@ -57,8 +63,18 @@ namespace Frontend_Project.Controllers
                         ResultLogin.auditorID = resultCone.Data.auditorID;
                         ResultLogin.nameAr = resultCone.Data.nameAr;
                         ResultLogin.nameEn = resultCone.Data.nameEn;
-                        //return RedirectToAction("Index", "Home", new { id = 99 });
-                        return RedirectToAction("welcome", "Home");
+                        ResultLogin.role = resultCone.Data.role;
+                            //return RedirectToAction("Index", "Home", new { id = 99 });
+
+                            // set cookies
+                            CookieOptions options = new CookieOptions();
+                            options.Expires = DateTime.Now.AddDays(1);
+
+                            //options.Expires = DateTime.Now.AddSeconds(60); 
+                            _httpContextAccessor.HttpContext.Response.Cookies.Append("username", ResultLogin.username, options);
+                            _httpContextAccessor.HttpContext.Response.Cookies.Append("nameEn", ResultLogin.nameEn, options);
+                            _httpContextAccessor.HttpContext.Response.Cookies.Append("role", ResultLogin.role.ToString(), options);
+                            return RedirectToAction("welcome", "Home");
                     }
                     
 
@@ -118,6 +134,12 @@ namespace Frontend_Project.Controllers
             ResultLogin.auditorID = 0;
             ResultLogin.nameAr = "";
             ResultLogin.nameEn = "";
+            Response.Cookies.Delete("username");
+            Response.Cookies.Delete("nameEn");
+            Response.Cookies.Delete("role");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("username");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("nameEn");
+            _httpContextAccessor.HttpContext.Response.Cookies.Delete("role");
             return RedirectToAction("login", "Authentication");
         }
     }

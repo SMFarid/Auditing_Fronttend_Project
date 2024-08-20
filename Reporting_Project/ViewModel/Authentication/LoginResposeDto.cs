@@ -9,5 +9,6 @@
         public string nameEn { get; set; }
         public string nameAr { get; set; }
         public int auditorID { get; set; }
+        public int role {  get; set; }
     }
 }

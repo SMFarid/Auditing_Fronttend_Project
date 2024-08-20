@@ -19,6 +19,12 @@
   text-transform: lowercase;
 }
 
+.form-select[multiple], .form-select[size]:not([size="1"]) {
+    padding-right: .875rem;
+    background-image: none;
+    height: 200px;
+}
+
 /* ! For .layout-navbar-fixed added fix padding top to .layout-page */
 /* Detached navbar */
 .layout-navbar-fixed .layout-wrapper:not(.layout-horizontal):not(.layout-without-menu) .layout-page {
