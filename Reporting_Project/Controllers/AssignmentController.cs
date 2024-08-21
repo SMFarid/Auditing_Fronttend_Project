@@ -144,10 +144,6 @@ namespace Frontend_Project.Controllers
         [HttpPost]
         public IActionResult Add(RoundCodeAssignmentIndexVM add)
         {
-
-
-
-
             //if (ResultLogin.username == "" || ResultLogin.auditorID == 0)
                 if (_contextAccessor.HttpContext.Request.Cookies["username"] == null)
                 {

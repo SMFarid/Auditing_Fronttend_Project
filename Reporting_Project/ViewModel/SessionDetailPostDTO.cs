@@ -13,7 +13,7 @@
         public Boolean Conducted { get; set; }
         public Boolean lab_Flag { get; set; }
         public Boolean test_Flag { get; set; }
-        public string Current_Chapter { get; set; }
+        public string? Current_Chapter { get; set; }
         public Boolean materialDelivered { get; set; }
         public Boolean depi_Logo_Flag { get; set; } = true;
         

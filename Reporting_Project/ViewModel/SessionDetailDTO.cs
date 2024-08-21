@@ -1,11 +1,26 @@
-﻿using Frontend_Project.ViewModel.Auditing;
+﻿using Frontend_Project.Common;
+using Frontend_Project.ViewModel.Auditing;
 
 namespace Frontend_Project.ViewModel
 {
     public class SessionDetailDTO
     {
+
+        public SessionDetailDTO() {
+            SessionType.Add(new CommonDTO{
+                ID = 1,
+                Name = "Physical"
+            });
+            SessionType.Add(new CommonDTO
+            {
+                ID = 0,
+                Name = "Online"
+            });
+        }
+
         public List<StudentDTO> StudentsAttendedList { get; set; } = new List<StudentDTO>(); 
-        public List<InstructorDTO> InstructorList { get; set; } = new List<InstructorDTO>(); 
+        public List<InstructorDTO> InstructorList { get; set; } = new List<InstructorDTO>();
+        public List<CommonDTO> SessionType { get; set; } = new List<CommonDTO>();
         public string OtherInstructorName { get; set; }
         public List<AuditorGroupsDTO> sessions { get; set; } = new List<AuditorGroupsDTO>();
         // محتاجه اعرف هستقبله من الباك وبعدين ابعته ولا هيتبعت من الفونت عل طول 
@@ -21,7 +36,7 @@ namespace Frontend_Project.ViewModel
         public Boolean Conducted { get; set; } = false;
         public Boolean lab_Flag { get; set; } = false;
         public Boolean test_Flag { get; set; } = false;
-        public string current_Chapter { get; set; }
+        public string? current_Chapter { get; set; }
         public Boolean MaterialDelivered { get; set; } = false;
         public Boolean depi_Logo_Flag { get; set; } = false;
         // public Boolean FilesDelivered { get; set; }

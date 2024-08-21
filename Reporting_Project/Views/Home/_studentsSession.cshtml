@@ -5,6 +5,7 @@
 
 @Html.HiddenFor(x=>x.auditing_Session_ID)
 @Html.HiddenFor(x=>x.study_Group_ID)
+@Html.HiddenFor(x=>x.SessionType)
 
 
 
@@ -97,11 +98,11 @@
 
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Current Chapter *</label>
+                    <label class="col-sm-2 col-form-label">Current Chapter</label>
                     <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class=""></i></span>
-                            <input type="text" asp-for="current_Chapter" class="form-control" placeholder="" aria-label="" aria-describedby="" required />
+                            <input type="text" asp-for="current_Chapter" class="form-control" placeholder="" aria-label="" aria-describedby="" />
                             @* <span id="basic-icon-default-email2" class="input-group-text">example.com</span> *@
                         </div>
                         <!--<div class="form-text"> You can use letters, numbers & periods </div>-->
@@ -130,8 +131,19 @@
                     <div class="col-sm-10">
                         <div class="list-group">
                             <label class="list-group-item">
+                                
+                            <select class="form-select" asp-for="lab_Flag" onchange="displayAddtionalQustion()">
+                                <option value=""> </option>
+                                @if (Model.SessionType.Count > 0)
+                                {
+                                    foreach (var item in Model.SessionType)
+                                    {
+                                        <option value="@item.ID">@item.Name</option>
+                                    }
+                                }
+                            </select>
 
-                            <input class="form-check-input me-1" asp-for="lab_Flag" id="lab_Flag" type="checkbox" onchange="displayAddtionalQustion()">
+                            @* <input class="form-check-input me-1" asp-for="lab_Flag" id="lab_Flag" type="checkbox" onchange="displayAddtionalQustion()"> *@
                             </label>
                         </div>
 
@@ -909,20 +921,43 @@
     <script type="text/javascript">
 
 
-        function displayAddtionalQustion() {
-            console.log("strat func");
-            var pysicalSession = document.getElementById('lab_Flag');
-            console.log(" pysicalSession Element");
-            console.log(pysicalSession);
-            var PhysicalQuestion = document.getElementById('PhysicalQuestion');
-            console.log(" PhysicalQuestion Element");
-            console.log(PhysicalQuestion);
-            if (pysicalSession.Checked) {
-                PhysicalQuestion.style.display = block;
-            } else {
-                PhysicalQuestion.style.display = none;
-            }
-            console.log("checked of pysicalSession.Checked" + pysicalSession.Checked);
-        }
+        // function displayAddtionalQustion() {
+        //     console.log("strat func");
+        //     var pysicalSession = document.getElementById('lab_Flag');
+        //     console.log(" pysicalSession Element");
+        //     console.log(pysicalSession);
+        //     var PhysicalQuestion = document.getElementById('PhysicalQuestion');
+        //     console.log(" PhysicalQuestion Element");
+        //     console.log(PhysicalQuestion);
+        //     if (pysicalSession.Checked) {
+        //         PhysicalQuestion.style.display = block;
+        //     } else {
+        //         PhysicalQuestion.style.display = none;
+        //     }
+        //     console.log("checked of pysicalSession.Checked" + pysicalSession.Checked);
+        // }
+
+
+        // function displayAddtionalQustion() {
+ 
+        //     console.log("strat func");
+        //     var pysicalSession = document.getElementById('lab_Flag');
+        //     console.log(" pysicalSession Element");
+        //     console.log(pysicalSession);
+        //     if (pysicalSession.value == "1") {
+        //         console.log("true")
+
+        //         PhysicalQuestion.style.display = 'block';
+        //     } else {
+        //         console.log("false")
+
+        //         PhysicalQuestion.style.display = 'none';
+        //     }
+        //     var PhysicalQuestion = document.getElementById('PhysicalQuestion');
+        //     console.log(" PhysicalQuestion Element");
+        //     console.log(PhysicalQuestion);
+        // }
+
+
     </script>
 }

@@ -316,9 +316,10 @@
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                             <div class="mb-2 mb-md-0">
-                                © <script>document.write(new Date().getFullYear())</script>, made with ❤️ by <a href="../../../../themeselection.com/index.html" target="_blank" class="footer-link fw-medium">ThemeSelection</a>
+                                @* © <script>document.write(new Date().getFullYear())</script>, made with ❤️ by <a href="../../../../themeselection.com/index.html" target="_blank" class="footer-link fw-medium">ThemeSelection</a> *@
+                                © <script>document.write(new Date().getFullYear())</script>, Powered by <a href="https://wavz.com.eg/" target="_blank" class="footer-link fw-medium">Wavz</a>
                             </div>
-                            <div class="d-none d-lg-inline-block">
+                            @* <div class="d-none d-lg-inline-block">
 
                                 <a href="../../../../themeselection.com/license/index.html" class="footer-link me-4" target="_blank">License</a>
                                 <a href="../../../../themeselection.com/index.html" target="_blank" class="footer-link me-4">More Themes</a>
@@ -328,7 +329,7 @@
 
                                 <a href="../../../../themeselection.com/support/index.html" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
 
-                            </div>
+                            </div> *@
                         </div>
                     </footer>
                     <!-- / Footer -->
@@ -387,7 +388,8 @@
     <script src="~/assets/js/dashboards-analytics.js"></script>
     <script src="~/assets/js/tables-datatables-basic.js"></script>
     <script src="~/assets/js/form-layouts.js"></script>
-    @RenderSectionAsync("script", required: false)
+
+    @await RenderSectionAsync("script", required: false)
     @await RenderSectionAsync("scriptaja", required: false)
     @await RenderSectionAsync("scriptassignment", required: false)
     @await RenderSectionAsync("scriptDeleteassignment", required: false)

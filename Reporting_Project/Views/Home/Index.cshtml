@@ -56,7 +56,7 @@
                             }
                             else if (item.Doneflag == 1)
                             {
-                                    <option style="color: yellow;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (ReOpened)</option>
+                                    <option style="color: darkorange;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (ReOpened)</option>
                             } else if (item.Doneflag == 2)
                             {
                                     <option style="color: black;" value="@item.RoundCode">@item.RoundCode - @item.SessionDateTime (Done)</option>
@@ -276,36 +276,37 @@
 
 
         function displayAddtionalQustion() {
-            debugger
-            $("input[type=checkbox]").change(function () {
-                debugger
-                if ($(this).prop("checked")) {
-                    $(this).val(true);
-                    console.log("true")
-                } else {
-                    $(this).val(false);
-                    console.log("false")
-                }
-            });
+            // debugger
+            // $("input[type=checkbox]").change(function () {
+            //     debugger
+            //     if ($(this).prop("checked")) {
+            //         $(this).val(true);
+            //         console.log("true")
+            //     } else {
+            //         $(this).val(false);
+            //         console.log("false")
+            //     }
+            // });
 
 
             // //debugger
-            // console.log("strat func");
-            // var pysicalSession = document.getElementById('lab_Flag');
-            // console.log(" pysicalSession Element");
-            // console.log(pysicalSession);
-            // if (pysicalSession.value == "true" ) {
-            //     console.log("true")
+            console.log("strat func");
+            var pysicalSession = document.getElementById('lab_Flag');
+            var PhysicalQuestion = document.getElementById('PhysicalQuestion');
+            console.log(" pysicalSession Element");
+            console.log(pysicalSession);
+            if (pysicalSession.value == "1" ) {
+                console.log("true")
                
-            //     //PhysicalQuestion.style.display = 'block';
-            // } else {
-            //     console.log("false")
+                PhysicalQuestion.style.display = 'block';
+            } else {
+                console.log("false")
                 
-            //     //PhysicalQuestion.style.display = 'none';
-            // }
-            // var PhysicalQuestion = document.getElementById('PhysicalQuestion');
-            // console.log(" PhysicalQuestion Element");
-            // console.log(PhysicalQuestion);
+                PhysicalQuestion.style.display = 'none';
+            }
+            
+            console.log(" PhysicalQuestion Element");
+            console.log(PhysicalQuestion);
             // console.log("checked of pysicalSession.Checked" + pysicalSession.Checked);
         }
 

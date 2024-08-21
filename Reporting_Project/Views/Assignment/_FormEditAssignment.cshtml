@@ -12,6 +12,7 @@
 
     <form class="add-new-record pt-0 row g-2 fv-plugins-bootstrap5 fv-plugins-framework" id="form-add-new-record" asp-action="Edit" asp-controller="Assignment" method="post" a novalidate="novalidate">
         @Html.HiddenFor(x=>x.EditRoundCodeAssignmentVM.AssignmentID)
+        @Html.HiddenFor(x=>x.EditRoundCodeAssignmentVM.RoundCode)
 
         <div class="col-sm-12 fv-plugins-icon-container">
             <label class="form-label" for="basicFullname"> Round Code </label>
@@ -29,7 +30,7 @@
 
                 <select class="form-select" asp-for="EditRoundCodeAssignmentVM.AuditorID">
                     <!--onclick="SelectChange()"-->
-                    <option>Open this select menu</option>
+                    @* <option>Open this select menu</option> *@
                     @if (Model.EditRoundCodeAssignmentVM.auditors.Count > 0)
                     {
                         foreach (var item in Model.EditRoundCodeAssignmentVM.auditors)
@@ -52,10 +53,27 @@
             </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
         </div>
         <div class="col-sm-12 fv-plugins-icon-container">
-            <label class="form-label" for="basicSalary">Conducted</label>
+            <label class="form-label" for="basicSalary">Status</label>
             <div class="input-group input-group-merge has-validation">
                 <span id="basicSalary2" class="input-group-text"><i class='bx bxs-school'></i></span>
-                <input type="number" asp-for="EditRoundCodeAssignmentVM.Conducted" class="form-control">
+
+                <select class="form-select" asp-for="EditRoundCodeAssignmentVM.Conducted">
+                    <!--onclick="SelectChange()"-->
+                    @* <option>Open this select menu</option> *@
+                    @if (Model.statuses.Count > 0)
+                    {
+                        foreach (var item in Model.statuses)
+                        {
+                            <option value="@item.code">@item.desc</option>
+
+
+                        }
+                    }
+                </select>
+                
+                @* @Html.EnumDropDownListFor(model => model.MyEnum) *@
+
+                @* <input type="number" asp-for="EditRoundCodeAssignmentVM.Conducted" class="form-control"> *@
             </div><div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
         </div>
         <div class="col-sm-12">
